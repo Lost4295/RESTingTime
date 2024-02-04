@@ -17,6 +17,7 @@ CREATE TABLE appartement (
     address text UNIQUE NOT NULL,
     available boolean NOT NULL DEFAULT 1,
     price float NOT NULL,
+    creator integer REFERENCES user(id)
 );
 
 CREATE TABLE reservation (

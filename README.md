@@ -19,9 +19,10 @@ Pas bsoin de techno chelou, on est des pros on le fait à la mano
 init.sql :
 
 1 user
-2 proprio
-4 admin
+2 locataire
+4 proprio
+8 admin
 
 pour avoir les rôles, on ajoute les chiffres
 user = 1
-user + proprio = 1+2=3
+user + proprio = 1+4=5
