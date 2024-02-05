@@ -5,3 +5,27 @@
 */
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
+
+var isConnected = false;
+var isadmin = false;
+
+function checkConnection() {
+    if (isConnected) {
+        document.getElementById("connected").classList.remove("d-none");
+        document.getElementById("not-connected").classList.add("d-none");
+    } else {
+        document.getElementById("not-connected").classList.remove("d-none");
+        document.getElementById("connected").classList.add("d-none");
+    }
+}
+
+function checkAdmin() {
+    if (isadmin) {
+        document.getElementById("admin").classList.remove("d-none");
+    } else {
+        document.getElementById("admin").classList.add("d-none");
+    }
+}
+
+
+setInterval(checkConnection, 1000);
