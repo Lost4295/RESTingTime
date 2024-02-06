@@ -5,7 +5,7 @@ require_once 'ConnexionRepository.php';
 
 function ccr($json)
 {
-    if (is_object($json)) {
+    if (is_object($json) && isset($json->username) && isset($json->email) && isset($json->password) && isset($json->nom) && isset($json->prenom)){
         $username = $json->username;
         $email = $json->email;
         $password = $json->password;
@@ -17,8 +17,3 @@ function ccr($json)
         return new Exception('Missing parameter !', 400);
     }
 }
-// inputFirstName
-// inputLastName
-// inputEmail
-// inputPassword
-// inputPasswordConfirm

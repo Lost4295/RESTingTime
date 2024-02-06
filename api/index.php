@@ -16,34 +16,32 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // séparer le path dans un tableau en se basant sur les '/'
 $uri = explode('/', $uri);
 $path = $uri[2];
+$secpath = $uri[3];
 $method = $_SERVER['REQUEST_METHOD'];
 
 
 
-if ($method=== "OPTIONS") {
+if ($method === "OPTIONS") {
     header("Access-Control-Allow-Methods: *");
     header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
     header("Access-Control-Allow-Origin: *");
     header("HTTP/1.1 200 OK");
     exit();
-} 
+}
 
 // On vérifie que le path demandé est bien un path existant
-if (!array_key_exists($path, $hashmap)) {
+if (!array_key_exists($path, $hashmap) || !array_key_exists($secpath, $hashmap[$path])) {
     // Si le chemin demandé n'existe pas, alors on renvoie le header HTTP "Not Found"
-    // Si le chemin demandé est "hello", alors on renvoie le header HTTP "OK" et on renvoie un message en JSON.
     header("HTTP/1.1 404 Not Found");
     exit();
+}
+
+if (!array_key_exists($method, $hashmap[$path][$secpath])) {
+    header("HTTP/1.1 405 Method Not Allowed");
+    exit();
 } else {
-    // Si le chemin demandé existe, alors on regarde si la méthode demandée est bien une méthode autorisée
-    if (!array_key_exists($method, $hashmap[$path])) {
-        // Si la méthode demandée n'existe pas, alors on renvoie le header HTTP "Method Not Allowed"
-        header("HTTP/1.1 405 Method Not Allowed");
-        exit();
-    } else {
-        // Si la méthode demandée existe, alors on appelle la méthode correspondante
-        callController(ucwords($path).$hashmap[$path][$method], $json);
-    }
+    // Si la méthode demandée existe, alors on appelle la route correspondante
+    callController(ucwords($path) . $hashmap[$path][$secpath][$method], $json);
 }
 
 
