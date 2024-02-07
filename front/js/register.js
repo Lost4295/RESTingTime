@@ -7,7 +7,7 @@ function handleSubmit(event) {
 
     const data = new FormData(event.target);
     // ''
-    let username = data.get("inputUsername"); //userapi rajouter USERNAME
+    let username = data.get("inputUsername");
     let prenom =data.get('inputFirstName');
     let nom =data.get('inputLastName'); // METTRE DES NAMES DANS LES FORM INPUTS
     let email =data.get('inputEmail');
@@ -64,6 +64,8 @@ function handleSubmit(event) {
 
     let errmess = document.getElementById("error-message");
     let errpanel = document.getElementById("error-panel");
+    let spinner = document.getElementById("spinner");
+    let button = document.getElementById("submit");
     errmess.innerHTML = "";
     if (error) {
         errpanel.classList.remove("d-none");
@@ -77,6 +79,8 @@ function handleSubmit(event) {
         return;
     } else {
         errpanel.classList.add("d-none");
+        spinner.classList.remove("d-none");
+        button.setAttribute("disabled", "");
     }
     fetch('http://localhost:8081/index.php/connexion/register', {
         method: 'POST',
@@ -93,6 +97,9 @@ function handleSubmit(event) {
             else {
                 alert("Erreur lors de l'inscription. Veuillez réessayer. Si cette erreur persiste, veuillez vérifier votre pseudo et votre email.");
             }
+        }).finally(() => {
+            spinner.classList.add("d-none");
+        button.removeAttribute("disabled");
         });
 }
 

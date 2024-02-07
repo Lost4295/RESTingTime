@@ -17,22 +17,22 @@ class Connexion
         }
     }
 
-    
-    public function getAllUser()
+
+    public function getAllUsers()
     {
         $query = "SELECT * FROM users";
         $result = @pg_query($this->connection, $query);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
-    public function getUser($username)
+    public function getUser($email)
     {
-        $query = "SELECT * FROM users WHERE username = $1";
-        $result = @pg_query_params($this->connection, $query, [$username]);
+        $query = "SELECT * FROM users WHERE email = $1";
+        $result = @pg_query_params($this->connection, $query, [$email]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
@@ -42,17 +42,17 @@ class Connexion
         $query = 'INSERT INTO users (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$first_Name, $last_Name, $email,  $username, $password]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 300) . "..."),500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
 
-    public function removeUser($username)
+    public function removeUser($id)
     {
-        $query = "DELETE FROM users WHERE username = $1";
-        $result = @pg_query_params($this->connection, $query, [$username]);
+        $query = "DELETE FROM users WHERE id = $1";
+        $result = @pg_query_params($this->connection, $query, [$id]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
 
         }
         return pg_fetch_assoc($result);
@@ -97,7 +97,7 @@ class Connexion
             $table[] = $email;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
-                throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
+                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
 
             }
             return pg_fetch_assoc($result);

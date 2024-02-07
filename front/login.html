@@ -24,7 +24,13 @@
                                     <h3 class="text-center font-weight-light my-4">Se connecter</h3>
                                 </div>
                                 <div class="card-body">
-                                    <form id="form">
+                                    <div id="error-panel" class="d-none">
+                                        <div class="alert alert-danger" role="alert">
+                                            <strong>Les erreurs suivantes ont été détectées. Veuillez les corriger.
+                                            </strong> <span id="error-message"></span>
+                                        </div>
+                                    </div>
+                                    <form id="form" method="post">
                                         <div class="form-floating mb-3">
                                             <input class="form-control" id="inputEmail" name="inputEmail" type="email"
                                                 placeholder="name@example.com" />
@@ -34,8 +40,9 @@
                                             <input class="form-control" id="inputPassword" type="password"
                                                 name="inputPassword" placeholder="Password" />
                                             <div class="d-flex justify-content-center">
-                                                <button type="button" class="input-group-text" id="pwd-eye"><i
-                                                        class="fa-regular fa-eye"></i></button>
+                                                <button type="button" class="input-group-text" id="pwd-eye">
+                                                    <i class='fa-regular fa-eye-slash'></i>
+                                                </button>
                                             </div>
                                             <label for="inputPassword">Mot de passe</label>
                                         </div>
@@ -47,7 +54,12 @@
                                         </div>
                                         <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                             <a class="small" href="password.html">Mot de passe oublié ?</a>
-                                            <a class="btn btn-primary" href="index.html">Se connecter</a>
+                                            <button class="btn btn-primary" id="submit">
+                                                <div class="spinner-border spinner-border-sm d-none" id="spinner" role="status">
+                                                    <span class="visually-hidden">Loading...</span>
+                                                </div>
+                                                Se connecter
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
@@ -78,7 +90,7 @@
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"
         crossorigin="anonymous"></script>
-    <script src="js/scripts.js"></script>
+    <script src="js/login.js"></script>
 </body>
 
 </html>

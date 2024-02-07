@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>test</title>
+</head>
+
+<body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.0.0/core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/md5.js"></script>
+    <script>
+        let tokensObj = {};
+        (async function () {
+            const test1 = await fetch('http://localhost:8081/auth.php', {
+                method: 'GET'
+            }).then(response => {
+                return response.text();
+            }).then(text => {
+                const tokens = text.split(',');
+                tokens.forEach(token => {
+                    const keyVal = token.split('=');
+                    tokensObj[keyVal[0].trim()] = keyVal[1].trim();
+                    // console.log(keyVal[0].trim() + ': ' + keyVal[1].trim());
+                    // console.log(tokensObj);
+                });
+            });
+
+            const { realm, domain, nonce, opaque, algorithm, qop } = tokensObj;
+
+            console.log(tokensObj);
+
+            const unquotes = (str) => {
+                return toString(str).replace(/"/g, '');
+            }
+
+            const authHash = CryptoJS.MD5(unquotes(tokensObj["username"]) + ':' + unquotes(tokensObj["realm"]) + ':' + 'mypass');
+
+
+                authHash = CryptoJS.MD5(authHash + ':' + unquotes(tokensObj["nonce"]) + ':' + unquotes(tokensObj["cnonce"]) + ':' + unquotes(tokensObj["qop"]) + ':' + CryptoJS.MD5('GET:' + unquotes(tokensObj["domain"])));
+
+            const challengeReply = 'Digest username:"' + tokensObj["username"] + '"' +
+                ', realm=' + tokensObj["realm"] + ', nonce=' + tokensObj["nonce"] +
+                ', uri=' + tokensObj["domain"] +
+                ', response="' + authHash + '"' + ', qop=' + unquotes(tokensObj["qop"]) +
+                ', nc=' + tokensObj["nc"] + ', cnonce="' + tokensObj["cnonce"] + '"';
+
+            const test2 = fetch(
+                'http://localhost:8081/auth.php', {
+                method: 'POST'
+                , headers: {
+                    "Authorization": challengeReply
+                }
+            }).then(response => {
+                return response.text();
+            }).then(text => {
+                // console.log(text);
+            });
+        })();
+    </script>
+</body>
+
+</html>

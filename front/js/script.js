@@ -6,9 +6,8 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-var isConnected = false;
-var isadmin = false;
-
+var isConnected = localStorage.getItem("connected");
+var isadmin = localStorage.getItem("admin");
 function checkConnection() {
     if (isConnected) {
         document.getElementById("connected").classList.remove("d-none");
@@ -28,4 +27,4 @@ function checkAdmin() {
 }
 
 
-setInterval(checkConnection, 1000);
+setInterval(checkConnection, 10);

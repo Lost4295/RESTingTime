@@ -17,3 +17,27 @@ function ccr($json)
         return new Exception('Missing parameter !', 400);
     }
 }
+
+
+function getaccs()
+{
+    $conn = new Connexion();
+    return $conn->getAllUsers();
+}
+
+function login($json)
+{
+    if (is_object($json) && isset($json->email) && isset($json->password)){
+        $email = $json->email;
+        $password = $json->password;
+        $conn = new Connexion();
+        $user = $conn->getUser($email);
+        if ($user['password'] == $password) {
+            return $user;
+        } else {
+            throw new Exception('Wrong password !', 401);
+        }
+    } else {
+        throw new Exception('Missing parameter !', 400);
+    }
+}
