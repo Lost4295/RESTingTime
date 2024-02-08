@@ -6,8 +6,8 @@
 // This file is intentionally blank
 // Use this file to add JavaScript to your project
 
-var isConnected = localStorage.getItem("connected");
-var isadmin = localStorage.getItem("admin");
+var isConnected = sessionStorage.getItem("connected");
+var isadmin = sessionStorage.getItem("admin");
 function checkConnection() {
     if (isConnected) {
         document.getElementById("connected").classList.remove("d-none");
