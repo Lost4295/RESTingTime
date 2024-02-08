@@ -1,4 +1,6 @@
 <?php
+
+require_once 'Connexion/ConnexionService.php';
 function handleAuth()
 {
     $realm = 'Restricted area';
@@ -12,6 +14,11 @@ function handleAuth()
     }
     //user => password
     $users = array('admin' => 'mypass', 'guest' => 'guest');
+    $users = getaccsps();
+    format($users);
+    // echo '<pre>';
+    // var_dump($users);
+    // echo '</pre>';
 
     $final = ["message" => "", "ok" => true];
 
@@ -64,6 +71,13 @@ function http_digest_parse($txt)
     }
 
     return $needed_parts ? false : $data;
+}
+
+function format(&$users)
+{
+    foreach ($users as $key => $value) {
+        $users[$value['username']] = $value['password'];
+    }
 }
 
 $final = handleAuth();

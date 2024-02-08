@@ -25,7 +25,27 @@ class Connexion
         if (!$result) {
             throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
-        return pg_fetch_assoc($result);
+
+        while ($row = pg_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+    public function getAllUsersConn()
+    {
+        $query = "SELECT username, password FROM users";
+        $result = @pg_query($this->connection, $query);
+        if (!$result) {
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+        }
+
+        while ($row = pg_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
     public function getUser($email)
     {

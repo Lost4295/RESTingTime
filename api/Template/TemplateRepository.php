@@ -33,7 +33,11 @@ class Template
         if (!$result) {
             throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
         } // exception custom, après vous en faites ce que vous voulez
-        return pg_fetch_assoc($result);
+        while ($row = pg_fetch_assoc($result)) { // NECESSAIRE POUR RECUPERER PLUSIEURS LIGNES
+            $rows[] = $row;
+        }
+
+        return $rows;
     }
 
 

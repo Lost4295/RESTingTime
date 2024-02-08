@@ -25,6 +25,12 @@ function getaccs()
     return $conn->getAllUsers();
 }
 
+function getaccsps()
+{
+    $conn = new Connexion();
+    return $conn->getAllUsersConn();
+}
+
 function login($json)
 {
     if (is_object($json) && isset($json->email) && isset($json->password)){
