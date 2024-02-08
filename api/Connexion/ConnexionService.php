@@ -14,7 +14,7 @@ function ccr($json)
         $conn = new Connexion();
         $conn->createUser($firstName, $lastName, $email, $username, $password);
     } else {
-        return new Exception('Missing parameter !', 400);
+        throw new Exception('Missing parameter !', 400);
     }
 }
 
