@@ -1,43 +1,51 @@
 <?php
-$realm = 'Restricted area';
-header("Access-Control-Allow-Origin: *");
-$method = $_SERVER['REQUEST_METHOD'];
-if ($method === "OPTIONS") {
-    header("Access-Control-Allow-Methods: *");
-    header("Access-Control-Allow-Headers:*");
-    header("HTTP/1.1 200 OK");
-    exit();
+function handleAuth()
+{
+    $realm = 'Restricted area';
+    header("Access-Control-Allow-Origin: *");
+    $method = $_SERVER['REQUEST_METHOD'];
+    if ($method === "OPTIONS") {
+        header("Access-Control-Allow-Methods: *");
+        header("Access-Control-Allow-Headers:*");
+        header("HTTP/1.1 200 OK");
+        exit();
+    }
+    //user => password
+    $users = array('admin' => 'mypass', 'guest' => 'guest');
+
+    $final = ["message" => "", "ok" => true];
+
+    if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
+        header('HTTP/1.1 401 Unauthorized');
+        header('WWW-Authenticate: Digest realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
+        echo ('realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
+        die();
+    }
+
+
+    // analyze the PHP_AUTH_DIGEST variable
+    if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[$data['username']])) {
+        $final["message"] = ('Wrong Credentials!');
+        $final["ok"] = false;
+    return json_encode($final);
+    }
+
+    // generate the valid response
+    $A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
+    $A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
+    $valid_response = md5($A1 . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $A2);
+
+    if ($data['response'] != $valid_response) {
+        $final["message"] = ('Wrong Credentials!');
+        $final["ok"] = false;
+    return json_encode($final);
+    }
+
+    // ok, valid username & password
+    $final["message"] = 'logged in as: ' . $data['username'];
+
+    return json_encode($final);
 }
-//user => password
-$users = array('admin' => 'mypass', 'guest' => 'guest');
-
-
-
-if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
-    header('HTTP/1.1 401 Unauthorized');
-    header('WWW-Authenticate: Digest realm="' . $realm .'",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
-    echo ('realm="' . $realm .'",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
-    die();
-}
-
-
-// analyze the PHP_AUTH_DIGEST variable
-if (!($data = http_digest_parse($_SERVER['PHP_AUTH_DIGEST'])) || !isset($users[$data['username']])) {
-    die('Wrong Credentials!');
-}
-
-// generate the valid response
-$A1 = md5($data['username'] . ':' . $realm . ':' . $users[$data['username']]);
-$A2 = md5($_SERVER['REQUEST_METHOD'] . ':' . $data['uri']);
-$valid_response = md5($A1 . ':' . $data['nonce'] . ':' . $data['nc'] . ':' . $data['cnonce'] . ':' . $data['qop'] . ':' . $A2);
-
-if ($data['response'] != $valid_response) {
-    die('Wrong Credentials!');
-}
-
-// ok, valid username & password
-echo 'You are logged in as: ' . $data['username'];
-
 
 // function to parse the http auth header
 function http_digest_parse($txt)
@@ -54,6 +62,11 @@ function http_digest_parse($txt)
         $data[$m[1]] = $m[3] ? $m[3] : $m[4];
         unset($needed_parts[$m[1]]);
     }
-    
+
     return $needed_parts ? false : $data;
 }
+
+$final = handleAuth();
+
+echo json_decode($final)->message;
+
