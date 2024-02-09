@@ -6,6 +6,8 @@ $hashmap = [
         "register" => ["POST" => "createAccount"],
         "login" => ["POST" => "login"],
         "accounts" => ["GET" => "getAllAccounts"],
+        "modify"=>["POST" => "modifyAccountInfo"],
+        "delete"=>["POST" => "deleteAccount"]
         // ""=>["DELETE" => "deleteAccount"],
         // ""=>["PUT" => "modifyAccountInfo"]
     ],

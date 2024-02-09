@@ -36,9 +36,10 @@
         }
 
     }
-    function ConnexiondeleteAccount() {
+    function ConnexiondeleteAccount($json) {
         try {
-
+            deleteUser($json ?? $_POST);
+            echo json_encode(['message'=> 'Account deleted','status'=> 200]);
         } catch (Exception $e){
             http_response_code($e->getCode());
             echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
@@ -47,9 +48,10 @@
 
     }
 
-    function ConnexionmodifyAccountInfo() {
+    function ConnexionmodifyAccountInfo($json) {
         try {
-
+            modifyUser($json ?? $_POST);
+            echo json_encode(['message'=> 'Account modified','status'=> 200]);
         } catch (Exception $e){
             http_response_code($e->getCode());
             echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
