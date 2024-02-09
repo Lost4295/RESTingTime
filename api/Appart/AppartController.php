@@ -4,7 +4,7 @@
 
     function Appartcreate($json) {
         try {
-            ccr($json ?? $_POST);
+            ccr2($json ?? $_POST);
             echo json_encode(['message'=> 'Appart created','status'=> 200]);
         } catch (Exception $e){
             http_response_code($e->getCode());
@@ -16,7 +16,7 @@
 
     function AppartgetAll() {
         try {
-            $res= getaccs(); 
+            $res= getaccs2(); 
             echo json_encode(["message"=>$res, "status"=>200]);
         } catch (Exception $e){
             http_response_code($e->getCode());

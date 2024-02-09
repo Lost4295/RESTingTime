@@ -1,27 +1,34 @@
 <?php
 
-require_once 'ConnexionRepository.php';
+require_once 'AppartRepository.php';
 
 
-function ccr($json)
+function ccr2($json)
 {
-    if (is_object($json) && isset($json->superficie) && isset($json->max_pers) && isset($json->price) && isset($json->address) && isset($json->creator)){
+    if (
+        is_object($json)
+        && isset($json->superficie)
+        && isset($json->max_pers) 
+        && isset($json->price) 
+        && isset($json->address) 
+        && isset($json->creator)
+    ) {
         $superficie = $json->superficie;
         $max_pers = $json->max_pers;
         $price = $json->price;
         $address = $json->address;
         $creator = $json->creator;
-        $conn = new Connexion();
-        $conn->createUser($address, $creator, $max_pers, $superficie, $price);
+        $conn = new Appart();
+        $conn->createAppart($superficie, $max_pers, $price,$address , $creator);
     } else {
         throw new Exception('Missing parameter !', 400);
     }
 }
 
 
-function getaccs()
+function getaccs2()
 {
-    $conn = new Connexion();
+    $conn = new Appart();
     return $conn->getAllAppart();
 }
 

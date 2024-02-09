@@ -1,6 +1,6 @@
 <?php
 
-class Connexion
+class Appart
 {
 
     private $connection = null;
@@ -26,6 +26,7 @@ class Connexion
             throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
 
+        $rows=[];
         while ($row = pg_fetch_assoc($result)) {
             $rows[] = $row;
         }
@@ -46,10 +47,10 @@ class Connexion
 
     public function createAppart($superficie, $max_pers, $price, $address, $creator)
     {
-        $query = 'INSERT INTO users (superficie, max_pers, price, address, creator) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
+        $query = 'INSERT INTO appartement (superficie, max_pers, price, address, creator) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$superficie, $max_pers, $price,  $address, $creator]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "..."), 500); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
