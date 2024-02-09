@@ -75,12 +75,13 @@ function http_digest_parse($txt)
 
 function format(&$users)
 {
-    foreach ($users as $key => $value) {
+    foreach ($users as  $value) {
         $users[$value['username']] = $value['password'];
     }
 }
 
-$final = handleAuth();
 
-echo json_decode($final)->message;
+// $final = handleAuth();
+
+// echo json_decode($final)->message;
 

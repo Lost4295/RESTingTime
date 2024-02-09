@@ -2,8 +2,15 @@
 
     require_once 'AppartService.php';
 
+
     function Appartcreate($json) {
         try {
+            $final = json_decode(handleAuth());
+            if (!$final->ok) {
+                http_response_code(401);
+                echo json_encode($final);
+                exit();
+            }
             ccr2($json ?? $_POST);
             echo json_encode(['message'=> 'Appart created','status'=> 200]);
         } catch (Exception $e){

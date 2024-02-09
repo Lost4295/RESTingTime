@@ -73,7 +73,7 @@ class Appart
         $c = 1;
         $table = [];
         if (!empty($superficie)) {
-            $query .= " superficie = $$c";
+            $query .= " superficie = $$c ";
             $c++;
             $table[] = $superficie;
         }
@@ -81,7 +81,7 @@ class Appart
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " max_pers = $$c";
+            $query .= " max_pers = $$c ";
             $c++;
             $table[] = $max_pers;
         }
@@ -89,7 +89,7 @@ class Appart
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " price = $$c";
+            $query .= " price = $$c ";
             $c++;
             $table[] = $price;
         }
@@ -97,7 +97,7 @@ class Appart
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " address = $$c";
+            $query .= " address = $$c ";
             $c++;
             $table[] = $address;
         }

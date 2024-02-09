@@ -1,6 +1,8 @@
 <?php
 require_once 'allcontrollers.php';
 require 'hashmap.php';
+require_once 'auth.php';
+
 // On renvoie du JSON, car c'est un API
 header("Content-Type: application/json; charset=utf8");
 // Autoriser le front(Et à vrai dire n'importe quel host) à utiliser cet API pour s'afficher
