@@ -20,6 +20,8 @@
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container px-4 px-lg-5">
             <a class="navbar-brand" href="index.html">Accueil</a>
+            <a class="navbar-brand" href="#!">Location</a>
+            <a class="navbar-brand" href="#!">Gestion</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
@@ -62,46 +64,104 @@
     <header class="bg-dark py-5">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center text-white">
-                <h1 class="display-4 fw-bolder">Shop in style</h1>
-                <p class="lead fw-normal text-white-50 mb-0">With this shop hompeage template</p>
+                <h1 class="display-4 fw-bolder">Votre profil d'utilisateur</h1>
+                <p class="lead fw-normal text-white-50 mb-0">Vous pouvez modifier vos informations sur cette page</p>
             </div>
         </div>
     </header>
     <!-- Section-->
     <section>
-        <div class="wrapper">
+        <div class="wrapper container">
             <div class="profile_infos">
-                <form action="" method="GET">
-                    <div class="input-box">
-                        <label for="email">Adresse e-mail*</label>
-                        <div class="d-flex flex-row p-2">
-                            <input type="email" name="email" disabled="disabled">
-                            <div class="btn"><a href="">Modifier</a></div>
+                <form  method="GET" class="row" >
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputFirstName"
+                                    name="inputFirstName" type="text"
+                                    placeholder="Entrez votre prénom" />
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="input-group-text" id="pwd-eye">
+                                            <i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                                </div>
+                                <label for="inputFirstName">Prénom</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating">
+                                <input class="form-control" id="inputLastName" name="inputLastName"
+                                    type="text" placeholder="Entrez votre nom" />
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="input-group-text" id="pwd-eye">
+                                        <i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                                </div>
+                                <label for="inputLastName">Nom</label>
+                            </div>
                         </div>
                     </div>
-                    <div class="input-box">
-                        <label for="password">Mot de passe*</label>
-                        <div class="d-flex flex-row p-2">
-                            <input type="password" name="password" placeholder="************" disabled="disabled">
-                            <div class="btn"><a href="">Modifier</a></div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="inputEmail" name="inputEmail" type="email"
+                            placeholder="nom@exemple.com" />
+                        <div class="d-flex justify-content-center">
+                            <button type="button" class="input-group-text" id="pwd-eye">
+                                <i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                        </div>
+                        <label for="inputEmail">Adresse mail</label>
+                    </div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputPassword" name="inputPassword"
+                                    type="password" placeholder="Créer un mot de passe" />
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="input-group-text" id="pwd-eye">
+                                        <i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                                </div>
+                                <label for="inputPassword">Mot de passe</label>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                            <input class="form-control" id="inputPasswordConfirm"
+                                name="inputPasswordConfirm" type="password"
+                                placeholder="Confirmer le mot de passe" />
+                            <div class="d-flex justify-content-center">
+                                <button type="button" class="input-group-text"
+                                    id="confpwd-eye"><i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                            </div>
+                            <label for="inputPasswordConfirm">Confirmation du mot de passe</label>
                         </div>
                     </div>
-                    <div class="input-box">
-                        <label for="phone">Numéro de téléphone</label>
-                        <div class="d-flex flex-row p-2">
-                            <input type="phone" name="phone">
-                            <div class="btn"><a href="">Modifier</a></div>
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0">
+                                <input class="form-control" id="inputPassword" name="inputPassword"
+                                    type="password" placeholder="Créer un mot de passe" />
+                                <div class="d-flex justify-content-center">
+                                    <button type="button" class="input-group-text" id="pwd-eye">
+                                        <i class='fa-regular fa-eye-slash'>Modifier</i></button>
+                                </div>
+                                <label for="phone">Numéro de téléphone</label>
+                            </div>
                         </div>
-                    </div>
-                    <div class="input-box">
-                        <label for="email">Date de naissance*</label>
-                        <div class="d-flex flex-row p-2">
-                            <input type="date" id="birthday" name="birthday" required="required">
-                            <div class="btn"><a href="">Modifier</a></div>
+                        <div class="col-md-6">
+                            <div class="form-floating mb-3 mb-md-0"></div>
+                                <input type="date" id="birthday" name="birthday" required="required">
+                                <label for="email">Date de naissance*</label>
+                            </div>
                         </div>
-                        <button type="button" class="btn btn-primary">Enregistrer</button>
                     </div>
                 </form>
+                <div class="text-center">
+                    <button type="button" class="btn btn-primary">Enregistrer</button>
+                </div>
+                <div class="text-center">
+                    <label for="DelUser">Supprimer définitivement le compte</label>
+                    <div>
+                        <button type="button" class="btn btn-danger">Supprimer</button>
+                    </div>
+                    
+                </div>
             </div>
         </div>
 
