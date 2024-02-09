@@ -5,7 +5,7 @@ require_once 'ConnexionRepository.php';
 
 function ccr($json)
 {
-    if (is_object($json) && isset($json->username) && isset($json->email) && isset($json->password) && isset($json->nom) && isset($json->prenom)){
+    if (is_object($json) && isset($json->username) && isset($json->email) && isset($json->password) && isset($json->nom) && isset($json->prenom)) {
         $username = $json->username;
         $email = $json->email;
         $password = $json->password;
@@ -18,6 +18,49 @@ function ccr($json)
     }
 }
 
+function modifyUser($json)
+{
+    $username = $email = $password = $firstName = $lastName = "";
+    if (is_object($json)) {
+        if (isset($json->username)) {
+            $username = $json->username;
+        }
+        if (isset($json->email)) {
+            $email = $json->email;
+        }
+        if (isset($json->password)) {
+            $password = $json->password;
+        }
+        if (isset($json->nom)) {
+            $firstName = $json->nom;
+        }
+        if (isset($json->prenom)) {
+            $lastName = $json->prenom;
+        }
+        $conn = new Connexion();
+        $user= $conn->getUser($email);
+        if($user){
+            $conn->modifyUser($firstName, $lastName, $username, $password, $email);
+        } else{
+            throw new Exception('User not found !', 404);
+        }
+    } else {
+        throw new Exception('Missing parameter !', 400);
+    }
+}
+
+function deleteUser($json)
+{
+    if (is_object($json)){
+        if (isset($json->email)) {
+            $email = $json->email;
+            $conn = new Connexion();
+            $conn->removeUser($email);
+        } else {
+            throw new Exception('Missing parameter !', 400);
+        }
+    }
+}
 
 function getaccs()
 {
@@ -33,12 +76,12 @@ function getaccsps()
 
 function login($json)
 {
-    if (is_object($json) && isset($json->email) && isset($json->password)){
+    if (is_object($json) && isset($json->email) && isset($json->password)) {
         $email = $json->email;
         $password = $json->password;
         $conn = new Connexion();
         $user = $conn->getUser($email);
-        if ($user['password'] == $password) {
+        if ($user && $user['password'] == $password) {
             return $user;
         } else {
             throw new Exception('Wrong password !', 401);

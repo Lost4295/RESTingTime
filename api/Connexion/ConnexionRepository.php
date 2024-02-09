@@ -69,56 +69,55 @@ class Connexion
 
     public function removeUser($id)
     {
-        $query = "DELETE FROM users WHERE id = $1";
+        $query = "DELETE FROM users WHERE email = $1";
         $result = @pg_query_params($this->connection, $query, [$id]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "..."), 500); // Truncate the error message to 30 characters
 
         }
         return pg_fetch_assoc($result);
     }
 
-    public function modifyUser($first_name = "", $last_name = "", $username = "", $password = "", $email = "")
+    public function modifyUser($first_name, $last_name, $username , $password , $email )
     {
         $query = "UPDATE users SET";
         $c = 1;
         $table = [];
-        if (empty($first_name)) {
-            $query .= " first_name = $$c";
+        if (!empty($first_name)) {
+            $query .= " first_name = $$c ";
             $c++;
             $table[] = $first_name;
         }
-        if (empty($last_name)) {
+        if (!empty($last_name)) {
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " last_name = $$c";
+            $query .= " last_name = $$c ";
             $c++;
             $table[] = $last_name;
         }
-        if (empty($password)) {
+        if (!empty($password)) {
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " password = $$c";
+            $query .= " password = $$c ";
             $c++;
             $table[] = $password;
         }
-        if (empty($username)) {
+        if (!empty($username)) {
             if ($c > 1) {
                 $query .= ", ";
             }
-            $query .= " username = $$c";
+            $query .= " username = $$c ";
             $c++;
             $table[] = $username;
         }
-        if (empty($email)) {
-            $query .= "WHERE email = $$c";
+        if (!empty($email)) {
+            $query .= "WHERE email = $$c ";
             $table[] = $email;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
-                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
-
+                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "..."), 500); // Truncate the error message to 30 characters
             }
             return pg_fetch_assoc($result);
         } else {
