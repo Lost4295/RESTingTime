@@ -16,7 +16,7 @@ $hashmap = [
         "create" => ["POST" => "create"],
         "getAll" => ["GET" => "getAll"],
         "getOne" => ["GET" => "getOne"],
-        "modify"=>["POST" => "modify"],
+        "modify"=>["PATCH" => "modify"],
         "delete"=>["DELETE" => "delete"]
         
     ],
