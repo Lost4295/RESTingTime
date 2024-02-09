@@ -37,8 +37,10 @@
     }
 
     
-    function Appartdelete() {
+    function Appartdelete($json) {
         try {
+            deleteAppart($json ?? $_POST);
+            echo json_encode(["message"=> 'Appart suprimé',"status"=> 200]);
 
         } catch (Exception $e){
             http_response_code($e->getCode());
@@ -48,8 +50,10 @@
 
     }
 
-    function AppartmodifyAccountInfo() {
+    function Appartmodify($json) {
         try {
+            modifyAppart($json ?? $_POST);
+            echo json_encode(["message"=> 'Appart modify',"status"=> 200]);
 
         } catch (Exception $e){
             http_response_code($e->getCode());

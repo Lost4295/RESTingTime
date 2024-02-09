@@ -35,10 +35,10 @@ class Appart
     }
 
     
-    public function getAppart($id)
+    public function getAppart($creator)
     {
-        $query = "SELECT * FROM appartement WHERE id = $1"; 
-        $result = @pg_query_params($this->connection, $query, [$id]);
+        $query = "SELECT * FROM appartement WHERE creator = $1"; 
+        $result = @pg_query_params($this->connection, $query, [$creator]);
         if (!$result) {
             throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
         }
@@ -55,10 +55,10 @@ class Appart
         return pg_fetch_assoc($result);
     }
 
-    public function removeAppart($id)
+    public function removeAppart($creator)
     {
-        $query = "DELETE FROM appartement WHERE id = $1";
-        $result = @pg_query_params($this->connection, $query, [$id]);
+        $query = "DELETE FROM appartement WHERE creator = $1";
+        $result = @pg_query_params($this->connection, $query, [$creator]);
         if (!$result) {
             throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
 
@@ -66,17 +66,18 @@ class Appart
         return pg_fetch_assoc($result);
     }
 
+
     public function modifyAppart($superficie = "", $max_pers = "", $price = "", $address = "", $creator = "")
     {
         $query = "UPDATE appartement SET";
         $c = 1;
         $table = [];
-        if (empty($superficie)) {
+        if (!empty($superficie)) {
             $query .= " superficie = $$c";
             $c++;
             $table[] = $superficie;
         }
-        if (empty($max_pers)) {
+        if (!empty($max_pers)) {
             if ($c > 1) {
                 $query .= ", ";
             }
@@ -84,7 +85,7 @@ class Appart
             $c++;
             $table[] = $max_pers;
         }
-        if (empty($price)) {
+        if (!empty($price)) {
             if ($c > 1) {
                 $query .= ", ";
             }
@@ -92,7 +93,7 @@ class Appart
             $c++;
             $table[] = $price;
         }
-        if (empty($address)) {
+        if (!empty($address)) {
             if ($c > 1) {
                 $query .= ", ";
             }
@@ -100,12 +101,12 @@ class Appart
             $c++;
             $table[] = $address;
         }
-        if (empty($creator)) {
+        if (!empty($creator)) {
             $query .= "WHERE creator = $$c";
             $table[] = $creator;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
-                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "..."), 500); // Truncate the error message to 30 characters
 
             }
             return pg_fetch_assoc($result);

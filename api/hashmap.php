@@ -16,7 +16,8 @@ $hashmap = [
         "create" => ["POST" => "create"],
         "getAll" => ["GET" => "getAll"],
         "getOne" => ["GET" => "getOne"],
-        "delete"=>["DELETE" => "delete"],
+        "modify"=>["POST" => "modify"],
+        "delete"=>["DELETE" => "delete"]
         
     ],
     // "template" => [ // La vous mettez le $path / le préfix des fonctions du controller (soit normalement le nom du dossier)
