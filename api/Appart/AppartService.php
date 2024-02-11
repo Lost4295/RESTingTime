@@ -32,8 +32,9 @@ function getaccs2()
     return $conn->getAllAppart();
 }
 
-function modifyAppart($json)
+function modifyAppart($json, $userId)
 {
+    // Récupérer les données de la requête JSON
     $superficie = $max_pers = $price = $address = $creator = "";
     if (is_object($json)) {
         if (isset($json->superficie)) {
@@ -51,17 +52,24 @@ function modifyAppart($json)
         if (isset($json->creator)) {
             $creator = $json->creator;
         }
-        $conn = new Appart();
-        $appart= $conn->getAppart($creator);
-        if($appart){
-            $conn->modifyAppart($superficie, $max_pers, $price, $address , $creator );
-        } else{
-            throw new Exception('Appart not found !', 404);
+
+        // Vérifier si l'utilisateur est le créateur de l'appartement
+        if ($userId == $creator) {
+            $conn = new Appart();
+            $appart = $conn->getAppart($creator);
+            if ($appart) {
+                $conn->modifyAppart($superficie, $max_pers, $price, $address, $creator);
+            } else {
+                throw new Exception('Appart not found !', 404);
+            }
+        } else {
+            throw new Exception('You are not authorized to modify this appart !', 403);
         }
     } else {
         throw new Exception('Missing parameter !', 400);
     }
 }
+
 
 function deleteAppart($json)
 {
