@@ -5,6 +5,10 @@ require_once 'AppartRepository.php';
 
 function ccr2($json)
 {
+    $final = json_decode(handleAuth());
+    if (!$final->ok) {
+        throw new UnauthorizedException($final->message);
+    }
     if (
         is_object($json)
         && isset($json->superficie)
@@ -35,10 +39,15 @@ function getappars($json)
     return $conn->getAppart($id ?? null);
 }
 
-function modifyAppart($json, $userId)
+function modifyAppart($json)
 {
     // Récupérer les données de la requête JSON
     $superficie = $max_pers = $price = $address = $creator = "";
+    $final = json_decode(handleAuth());
+    if (!$final->ok) {
+        throw new UnauthorizedException($final->message);
+    }
+    $userId = $final->id;
     if (is_object($json)) {
         if (isset($json->superficie)) {
             $superficie = $json->superficie;
@@ -63,10 +72,10 @@ function modifyAppart($json, $userId)
             if ($appart) {
                 $conn->modifyAppart($superficie, $max_pers, $price, $address, $creator);
             } else {
-                throw new Exception('Appart not found !', 404);
+                throw new NotFoundException('Appart not found !');
             }
         } else {
-            throw new Exception('You are not authorized to modify this appart !', 403);
+            throw new ForbiddenException('You are not authorized to modify this appart !');
         }
     } else {
         throw new MissingParameterException('Missing parameter !');

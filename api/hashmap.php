@@ -10,8 +10,6 @@ $hashmap = [
             "PATCH" => "modifyAccountInfo",
             "DELETE" => "deleteAccount"
         ]
-        // ""=>["DELETE" => "deleteAccount"],
-        // ""=>["PUT" => "modifyAccountInfo"]
     ],
 
     "appart" => [

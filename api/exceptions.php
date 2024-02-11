@@ -9,3 +9,4 @@ class BddBadRequestException extends Exception {}
 class MissingParameterException extends Exception {}
 class BddMissingParameterException extends Exception {}
 class BddConnexionException extends Exception {}
+class ForbiddenException extends Exception {}
