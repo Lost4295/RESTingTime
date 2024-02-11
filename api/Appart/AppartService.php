@@ -8,9 +8,9 @@ function ccr2($json)
     if (
         is_object($json)
         && isset($json->superficie)
-        && isset($json->max_pers) 
-        && isset($json->price) 
-        && isset($json->address) 
+        && isset($json->max_pers)
+        && isset($json->price)
+        && isset($json->address)
         && isset($json->creator)
     ) {
         $superficie = $json->superficie;
@@ -21,15 +21,18 @@ function ccr2($json)
         $conn = new Appart();
         $conn->createAppart($superficie, $max_pers, $price,$address , $creator);
     } else {
-        throw new Exception('Missing parameter !', 400);
+        throw new MissingParameterException('Missing parameter !');
     }
 }
 
 
-function getaccs2()
+function getappars($json)
 {
+    if (is_object($json) && isset($json->id)){
+        $id = $json->id;
+    }
     $conn = new Appart();
-    return $conn->getAllAppart();
+    return $conn->getAppart($id ?? null);
 }
 
 function modifyAppart($json, $userId)
@@ -66,7 +69,7 @@ function modifyAppart($json, $userId)
             throw new Exception('You are not authorized to modify this appart !', 403);
         }
     } else {
-        throw new Exception('Missing parameter !', 400);
+        throw new MissingParameterException('Missing parameter !');
     }
 }
 
@@ -79,10 +82,11 @@ function deleteAppart($json)
             $conn = new Appart();
             $conn->removeAppart($creator);
         } else {
-            throw new Exception('Missing parameter !', 400);
+            throw new MissingParameterException('Missing parameter !');
         }
+    } else {
+        throw new BadRequestException('Missing body !');
     }
 }
-
 
 
