@@ -1,6 +1,6 @@
 <?php
 
-class Template
+class Reservation
 {
 
     // À NE PAS SUPPRIMER : cette fonction est utilisée pour les connexions !!
@@ -11,10 +11,10 @@ class Template
         try {
             $this->connection = pg_connect("host=database port=5432 dbname=userapi_db user=userapi password=password");
             if ($this->connection == null) {
-                throw new Exception("Could not connect to database.");
+                throw new BddConnexionException("Could not connect to database.");
             }
-        } catch (Exception $e) {
-            throw new Exception("Database connection failed :" . $e->getMessage());
+        } catch (BddConnexionException $e) {
+            throw new BddConnexionException("Database connection failed :" . $e->getMessage(),0,$e);
         }
     }
     // À NE PAS SUPPRIMER : cette fonction est utilisée pour les connexions !!
@@ -31,7 +31,7 @@ class Template
         $result = @pg_query($this->connection, $query);
         //  le @ devant pg_query permet de ne pas afficher l'erreur de PHP si la requête échoue
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "..."),500); // Truncate the error message to 30 characters
+            throw new Exception("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         } // exception custom, après vous en faites ce que vous voulez
         while ($row = pg_fetch_assoc($result)) { // NECESSAIRE POUR RECUPERER PLUSIEURS LIGNES
             $rows[] = $row;
@@ -40,6 +40,15 @@ class Template
         return $rows;
     }
 
+
+        public function createReservation($appart, $user, $start, $end){
+            $query = 'INSERT INTO reservation (appart, user, start, end) VALUES ($1, $2, $3, $4) RETURNING (id)';
+            $result = @pg_query_params($this->connection, $query, [$appart, $user, $start, $end]);
+            if (!$result) {
+                throw new BddBadRequestException("Query failed : " . str_replace("\"","`",substr(pg_last_error($this->connection), 8, 30000) . "...")); // Truncate the error message to 30 characters
+            }
+            return pg_fetch_assoc($result);
+        }
 
 // à vous de jouer !
 // ...

@@ -10,23 +10,27 @@ class Appart
         try {
             $this->connection = pg_connect("host=database port=5432 dbname=userapi_db user=userapi password=password");
             if ($this->connection == null) {
-                throw new Exception("Could not connect to database.", 500);
+                throw new BddConnexionException("Could not connect to database.");
             }
         } catch (Exception $e) {
-            throw new Exception("Database connection failed :" . $e->getMessage(), 500);
+            throw new BddConnexionException("Database connection failed :" . $e->getMessage());
         }
     }
 
 
-    public function getAllAppart()
+    public function getAppart($id)
     {
         $query = "SELECT * FROM appartement";
-        $result = @pg_query($this->connection, $query);
-        if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+        if ($id) {
+            $query.= " WHERE id = $1"; 
+        $result = @pg_query_params($this->connection, $query, [$id]);
+        } else {
+            $result = @pg_query($this->connection, $query);
         }
-
-        $rows=[];
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+        }
+        
         while ($row = pg_fetch_assoc($result)) {
             $rows[] = $row;
         }
@@ -34,23 +38,12 @@ class Appart
         return $rows;
     }
 
-    
-    public function getAppart($creator)
-    {
-        $query = "SELECT * FROM appartement WHERE creator = $1"; 
-        $result = @pg_query_params($this->connection, $query, [$creator]);
-        if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
-        }
-        return pg_fetch_assoc($result);
-    }
-
     public function createAppart($superficie, $max_pers, $price, $address, $creator)
     {
         $query = 'INSERT INTO appartement (superficie, max_pers, price, address, creator) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$superficie, $max_pers, $price,  $address, $creator]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "...")); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
@@ -60,7 +53,7 @@ class Appart
         $query = "DELETE FROM appartement WHERE creator = $1";
         $result = @pg_query_params($this->connection, $query, [$creator]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
 
         }
         return pg_fetch_assoc($result);
@@ -106,12 +99,11 @@ class Appart
             $table[] = $creator;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
-                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "..."), 500); // Truncate the error message to 30 characters
-
+                throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 300) . "...")); // Truncate the error message to 30 characters
             }
             return pg_fetch_assoc($result);
         } else {
-            throw new Exception("Missing mandatory parameters");
+            throw new BddMissingParameterException("Missing mandatory parameters");
         }
     }
 }

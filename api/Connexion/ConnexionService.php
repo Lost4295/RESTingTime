@@ -14,7 +14,7 @@ function ccr($json)
         $conn = new Connexion();
         $conn->createUser($firstName, $lastName, $email, $username, $password);
     } else {
-        throw new Exception('Missing parameter !', 400);
+        throw new MissingParameterException('Missing parameter !');
     }
 }
 
@@ -42,10 +42,10 @@ function modifyUser($json)
         if($user){
             $conn->modifyUser($firstName, $lastName, $username, $password, $email);
         } else{
-            throw new Exception('User not found !', 404);
+            throw new NotFoundException('User not found !');
         }
     } else {
-        throw new Exception('Missing parameter !', 400);
+        throw new MissingParameterException('Missing parameter !');
     }
 }
 
@@ -57,15 +57,18 @@ function deleteUser($json)
             $conn = new Connexion();
             $conn->removeUser($email);
         } else {
-            throw new Exception('Missing parameter !', 400);
+            throw new MissingParameterException('Missing parameter !');
         }
     }
 }
 
-function getaccs()
+function getaccs($json)
 {
+    if (is_object($json) && isset($json->id)){
+        $id = $json->id;
+    }
     $conn = new Connexion();
-    return $conn->getAllUsers();
+    return $conn->getAllUsers($id ?? null);
 }
 
 function getaccsps()
@@ -84,9 +87,9 @@ function login($json)
         if ($user && $user['password'] == $password) {
             return $user;
         } else {
-            throw new Exception('Wrong password !', 401);
+            throw new UnauthorizedException('Wrong password !');
         }
     } else {
-        throw new Exception('Missing parameter !', 400);
+        throw new MissingParameterException('Missing parameter !');
     }
 }

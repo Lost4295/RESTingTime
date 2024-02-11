@@ -6,21 +6,28 @@
         try {
             ccr($json ?? $_POST);
             echo json_encode(['message'=> 'Account created','status'=> 200]);
-        } catch (Exception $e){
+        } catch (BadRequestException $e){
             http_response_code($e->getCode());
-            echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
+            echo json_encode(['message'=> ' Une erreur est survenue. Une donnée est certainement manquante. Merci de réessayer.','status'=> 400 ]);
+            exit();
+        } catch (BddBadRequestException $e) {
+            http_response_code($e->getCode());
+            echo json_encode(['message'=> "Une erreur est survenue en base (".$e->getMessage().") Merci de réessayer.",'status'=> 400 ]);
             exit();
         }
-
     }
 
-    function ConnexiongetAllAccounts() {
+    function ConnexiongetAccount($json) {
         try {
-            $res= getaccs();
+            $res= getaccs($json ?? $_POST);
             echo json_encode(["message"=>$res, "status"=>200]);
-        } catch (Exception $e){
+        } catch (BadRequestException $e){
             http_response_code($e->getCode());
-            echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
+            echo json_encode(['message'=> ' Une erreur est survenue. Une donnée est certainement manquante. Merci de réessayer.','status'=> 400 ]);
+            exit();
+        } catch (BddBadRequestException $e) {
+            http_response_code($e->getCode());
+            echo json_encode(['message'=> "Une erreur est survenue en base (".$e->getMessage().") Merci de réessayer.",'status'=> 400 ]);
             exit();
         }
     }
@@ -29,9 +36,13 @@
         try {
             $user = login($json ?? $_POST);
             echo json_encode(['message'=> ["name"=>$user["username"]],'status'=> 200]);
-        } catch (Exception $e){
-            http_response_code($e->getCode());
-            echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
+        } catch (BadRequestException $e){
+            http_response_code(400);
+            echo json_encode(['message'=> ' Une erreur est survenue. Une donnée est certainement manquante. Merci de réessayer.','status'=> 400 ]);
+            exit();
+        } catch (BddBadRequestException $e) {
+            http_response_code(400);
+            echo json_encode(['message'=> "Une erreur est survenue en base (".$e->getMessage().") Merci de réessayer.",'status'=> 400 ]);
             exit();
         }
 
@@ -40,9 +51,22 @@
         try {
             deleteUser($json ?? $_POST);
             echo json_encode(['message'=> 'Account deleted','status'=> 200]);
-        } catch (Exception $e){
-            http_response_code($e->getCode());
-            echo json_encode(['message'=> $e->getMessage(),'status'=> $e->getCode()]);
+
+        } catch (BddConnexionException | BddBadRequestException | BadRequestException $e ) {
+            http_response_code(500);
+            echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
+            exit();
+        } catch (BddNotFoundException $e) {
+            http_response_code(404);
+            echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
+            exit();
+        } catch (UnauthorizedException $e) {
+            http_response_code(401);
+            echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
+            exit();
+        } catch (MissingParameterException | BddMissingParameterException $e) {
+            http_response_code(400);
+            echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
             exit();
         }
 

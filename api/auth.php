@@ -50,6 +50,8 @@ function handleAuth()
 
     // ok, valid username & password
     $final["message"] = 'logged in as: ' . $data['username'];
+    $final["status"] = $users[$data['username']."-status"] ;
+    $users["id"] = $users[$data['username']."-id"];
 
     return json_encode($final);
 }
@@ -77,6 +79,8 @@ function format(&$users)
 {
     foreach ($users as  $value) {
         $users[$value['username']] = $value['password'];
+        $users[$value['username']."-status"] = $value['status'];
+        $users[$value['username']."-id"] = $value['id'];
     }
 }
 

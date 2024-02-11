@@ -2,6 +2,9 @@
 require_once 'allcontrollers.php';
 require 'hashmap.php';
 require_once 'auth.php';
+require_once 'exceptions.php';
+
+
 
 // On renvoie du JSON, car c'est un API
 header("Content-Type: application/json; charset=utf8");
@@ -18,7 +21,7 @@ $uri = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 // séparer le path dans un tableau en se basant sur les '/'
 $uri = explode('/', $uri);
 $path = $uri[2];
-$secpath = $uri[3];
+$secpath = $uri[3] ?? "";
 $method = $_SERVER['REQUEST_METHOD'];
 
 
@@ -51,3 +54,5 @@ function callController(string $params, $json)
 {
     $params($json);
 }
+
+

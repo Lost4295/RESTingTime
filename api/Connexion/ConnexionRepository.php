@@ -10,20 +10,25 @@ class Connexion
         try {
             $this->connection = pg_connect("host=database port=5432 dbname=userapi_db user=userapi password=password");
             if ($this->connection == null) {
-                throw new Exception("Could not connect to database.", 500);
+                throw new BddConnexionException("Could not connect to database.");
             }
         } catch (Exception $e) {
-            throw new Exception("Database connection failed :" . $e->getMessage(), 500);
+            throw new BddConnexionException("Database connection failed :" . $e->getMessage());
         }
     }
 
 
-    public function getAllUsers()
+    public function getAllUsers($id)
     {
         $query = "SELECT * FROM users";
-        $result = @pg_query($this->connection, $query);
+        if ($id) {
+            $query .= " WHERE id = $1";
+            $result = @pg_query_params($this->connection, $query, [$id]);
+        } else {
+            $result = @pg_query($this->connection, $query);
+        }
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
 
         while ($row = pg_fetch_assoc($result)) {
@@ -35,10 +40,10 @@ class Connexion
 
     public function getAllUsersConn()
     {
-        $query = "SELECT username, password FROM users";
+        $query = "SELECT id, username, password, status FROM users";
         $result = @pg_query($this->connection, $query);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddConnexionException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
 
         while ($row = pg_fetch_assoc($result)) {
@@ -52,7 +57,7 @@ class Connexion
         $query = "SELECT * FROM users WHERE email = $1";
         $result = @pg_query_params($this->connection, $query, [$email]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
@@ -62,7 +67,7 @@ class Connexion
         $query = 'INSERT INTO users (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$first_Name, $last_Name, $email,  $username, $password]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
         return pg_fetch_assoc($result);
     }
@@ -72,7 +77,7 @@ class Connexion
         $query = "DELETE FROM users WHERE email = $1";
         $result = @pg_query_params($this->connection, $query, [$id]);
         if (!$result) {
-            throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "..."), 500); // Truncate the error message to 30 characters
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "...")); // Truncate the error message to 30 characters
 
         }
         return pg_fetch_assoc($result);
@@ -117,11 +122,11 @@ class Connexion
             $table[] = $email;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
-                throw new Exception("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "..."), 500); // Truncate the error message to 30 characters
+                throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "...")); // Truncate the error message to 30 characters
             }
             return pg_fetch_assoc($result);
         } else {
-            throw new Exception("Missing mandatory parameters");
+            throw new BddMissingParameterException("Missing mandatory parameters");
         }
     }
 }
