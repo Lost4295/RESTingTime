@@ -66,14 +66,14 @@ function Appartdelete($json)
 function Appartmodify($json)
 {
     try {
-        modifyAppart($json ?? $_POST,);
+        modifyAppart($json ?? $_POST);
         echo json_encode(["message" => 'Appart modify', "status" => 200]);
     } catch (BddConnexionException | BddBadRequestException $e) {
 
         http_response_code(500);
         echo json_encode(['message' => $e->getMessage(), 'status' => 500]);
         exit();
-    } catch (BddNotFoundException $e) {
+    } catch (BddNotFoundException | NotFoundException $e) {
         http_response_code(404);
         echo json_encode(['message' => $e->getMessage(), 'status' => 404]);
         exit();
@@ -84,6 +84,10 @@ function Appartmodify($json)
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(400);
         echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        exit();
+    }catch (ForbiddenException  $e) {
+        http_response_code(403);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 403]);
         exit();
     }
 }

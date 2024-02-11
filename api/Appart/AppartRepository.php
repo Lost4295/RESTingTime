@@ -30,7 +30,7 @@ class Appart
         if (!$result) {
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
-        
+        $rows = [];
         while ($row = pg_fetch_assoc($result)) {
             $rows[] = $row;
         }
@@ -95,7 +95,7 @@ class Appart
             $table[] = $address;
         }
         if (!empty($creator)) {
-            $query .= "WHERE creator = $$c";
+            $query .= "WHERE id = $$c";
             $table[] = $creator;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {

@@ -64,18 +64,18 @@ function modifyAppart($json)
         if (isset($json->creator)) {
             $creator = $json->creator;
         }
-
         // Vérifier si l'utilisateur est le créateur de l'appartement
-        if ($userId == $creator) {
+        if (isset($json->id) && $userId == $creator) {
             $conn = new Appart();
-            $appart = $conn->getAppart($creator);
+            $appart = $conn->getAppart($json->id);
             if ($appart) {
-                $conn->modifyAppart($superficie, $max_pers, $price, $address, $creator);
+                $conn->modifyAppart($superficie, $max_pers, $price, $address, $creator, $json->id);
             } else {
                 throw new NotFoundException('Appart not found !');
             }
         } else {
             throw new ForbiddenException('You are not authorized to modify this appart !');
+            
         }
     } else {
         throw new MissingParameterException('Missing parameter !');
@@ -83,18 +83,25 @@ function modifyAppart($json)
 }
 
 
-function deleteAppart($json)
+function deleteAppart($json, $userId)
 {
-    if (is_object($json)){
+    
+    if (is_object($json)) {
         if (isset($json->creator)) {
             $creator = $json->creator;
-            $conn = new Appart();
-            $conn->removeAppart($creator);
+            
+            // Vérifier si l'utilisateur est le créateur de l'appartement
+            if (isset($json->id) && $userId == $creator) {
+                $conn = new Appart();
+                $conn->removeAppart($creator);
+            } else {
+                throw new Exception('You are not authorized to delete this appart !', 403);
+            }
         } else {
-            throw new MissingParameterException('Missing parameter !');
+            throw new Exception('Missing parameter "creator" in JSON !', 400);
         }
     } else {
-        throw new BadRequestException('Missing body !');
+        throw new Exception('Missing body in JSON !', 400);
     }
 }
 
