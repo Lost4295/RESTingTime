@@ -1,0 +1,36 @@
+_id: req_40620d56c66a4ceb9be84901958208ff
+type: Request
+parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+modified: 1707660906076
+created: 1707483340779
+url: http://localhost:8081/index.php/appart
+name: Appart1
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"superficie": "50",
+      "max_pers": "9",
+      "price": "105000",
+      "address": "24 rue des esgies",
+      "creator": "1"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: digest
+  disabled: false
+  username: Test
+  password: Toto
+metaSortKey: -1707483340779
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

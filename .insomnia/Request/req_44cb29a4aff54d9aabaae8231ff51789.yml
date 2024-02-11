@@ -1,0 +1,32 @@
+_id: req_44cb29a4aff54d9aabaae8231ff51789
+type: Request
+parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+modified: 1707488599462
+created: 1707485064680
+url: http://localhost:8081/index.php/appart/modify
+name: Modifier Appart
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+    			"superficie": "55",
+    			"max_pers": "9",
+    			"address": "24 rue esgi",
+    			"price": "105000",
+    			"creator": "2"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1707485064680
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

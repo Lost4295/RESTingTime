@@ -1,0 +1,34 @@
+_id: req_f54f20c9ea5c424496dedcfd1a67a78c
+type: Request
+parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+modified: 1707550599921
+created: 1707165230004
+url: http://localhost:8081/index.php/connexion/register
+name: Créer compte
+description: ""
+method: PUT
+body:
+  mimeType: application/json
+  text: |
+    {
+    	"username": "Test2",
+    	"email": "titi@tata",
+    	"password": "Toto2",
+    	"nom": "Toto",
+    	"prenom": "Toto"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1707165395633
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

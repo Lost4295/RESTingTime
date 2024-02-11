@@ -1,0 +1,31 @@
+_id: req_6dc7f7ccb78347be913f0ed26b4ac769
+type: Request
+parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+modified: 1707504431258
+created: 1707474523752
+url: http://localhost:8081/index.php/connexion/modify
+name: Modifier
+description: ""
+method: PATCH
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email":"titi@tata",
+    	"username":"jean-marc"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/8.6.1
+authentication: {}
+metaSortKey: -1707474523752
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

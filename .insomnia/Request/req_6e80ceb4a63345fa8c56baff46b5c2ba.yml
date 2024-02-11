@@ -1,0 +1,30 @@
+_id: req_6e80ceb4a63345fa8c56baff46b5c2ba
+type: Request
+parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+modified: 1707482853434
+created: 1707474541979
+url: http://localhost:8081/index.php/connexion/delete
+name: Supprimer
+description: ""
+method: DELETE
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"email":"titi@tata"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: insomnia/8.6.1
+authentication: {}
+metaSortKey: -1707474541979
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

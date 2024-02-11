@@ -1,0 +1,36 @@
+_id: req_2d7b398179ef4f6a906bc3472f04e747
+type: Request
+parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+modified: 1707679974800
+created: 1707483402109
+url: http://localhost:8081/index.php/appart/create
+name: Appart2
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"superficie": "58",
+      "max_pers": "3",
+      "price": "10000",
+      "address": "25 rue erard",
+      "creator": "1"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication:
+  type: digest
+  disabled: false
+  username: Test
+  password: Toto
+metaSortKey: -1707483402109
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

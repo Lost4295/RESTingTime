@@ -1,0 +1,28 @@
+_id: req_dba74ad9a3554f80acb0bded60666a5a
+type: Request
+parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+modified: 1707485089494
+created: 1707483475039
+url: http://localhost:8081/index.php/appart/delete
+name: Supprimer Appart
+description: ""
+method: DELETE
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"creator": "1"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+authentication: {}
+metaSortKey: -1707483475039
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

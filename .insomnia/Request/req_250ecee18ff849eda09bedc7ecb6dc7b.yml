@@ -1,0 +1,23 @@
+_id: req_250ecee18ff849eda09bedc7ecb6dc7b
+type: Request
+parentId: fld_7013c5a0434640f392e9501e611911ce
+modified: 1707680836594
+created: 1707661848499
+url: http://localhost:8081/index.php/appart/modify
+name: New Request
+description: ""
+method: GET
+body: {}
+parameters: []
+headers:
+  - name: User-Agent
+    value: insomnia/2023.5.8
+authentication: {}
+metaSortKey: -1707661848500
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
