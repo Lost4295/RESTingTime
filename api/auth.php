@@ -51,7 +51,7 @@ function handleAuth()
     // ok, valid username & password
     $final["message"] = 'logged in as: ' . $data['username'];
     $final["status"] = $users[$data['username']."-status"] ;
-    $users["id"] = $users[$data['username']."-id"];
+    $final["id"] = $users[$data['username']."-id"];
 
     return json_encode($final);
 }
