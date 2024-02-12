@@ -1,9 +1,9 @@
 _id: req_44cb29a4aff54d9aabaae8231ff51789
 type: Request
 parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
-modified: 1707488599462
+modified: 1707689506892
 created: 1707485064680
-url: http://localhost:8081/index.php/appart/modify
+url: http://localhost:8081/index.php/appart
 name: Modifier Appart
 description: ""
 method: PATCH

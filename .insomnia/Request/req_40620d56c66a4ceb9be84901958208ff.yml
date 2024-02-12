@@ -1,7 +1,7 @@
 _id: req_40620d56c66a4ceb9be84901958208ff
 type: Request
 parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
-modified: 1707660906076
+modified: 1707689527795
 created: 1707483340779
 url: http://localhost:8081/index.php/appart
 name: Appart1
@@ -14,7 +14,7 @@ body:
     	"superficie": "50",
       "max_pers": "9",
       "price": "105000",
-      "address": "24 rue des esgies",
+      "address": "24 rue de esgi",
       "creator": "1"
     }
 parameters: []

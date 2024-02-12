@@ -1,9 +1,9 @@
 _id: req_2c0ef2fc1cc1419fa2d70502f3b253ab
 type: Request
 parentId: fld_cfbc70c5af01444fa20ebf451b82c069
-modified: 1707548221069
+modified: 1707689547587
 created: 1707295819421
-url: http://localhost:8081/index.php/connexion/create
+url: http://localhost:8081/index.php/connexion
 name: Connexion
 description: ""
 method: POST

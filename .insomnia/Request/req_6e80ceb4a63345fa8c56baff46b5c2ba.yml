@@ -1,9 +1,9 @@
 _id: req_6e80ceb4a63345fa8c56baff46b5c2ba
 type: Request
 parentId: fld_cfbc70c5af01444fa20ebf451b82c069
-modified: 1707482853434
+modified: 1707689540545
 created: 1707474541979
-url: http://localhost:8081/index.php/connexion/delete
+url: http://127.0.0.1:8081/index.php/connexion
 name: Supprimer
 description: ""
 method: DELETE

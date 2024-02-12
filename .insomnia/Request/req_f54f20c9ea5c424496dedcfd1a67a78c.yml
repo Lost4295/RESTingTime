@@ -1,9 +1,9 @@
 _id: req_f54f20c9ea5c424496dedcfd1a67a78c
 type: Request
 parentId: fld_cfbc70c5af01444fa20ebf451b82c069
-modified: 1707550599921
+modified: 1707689552714
 created: 1707165230004
-url: http://localhost:8081/index.php/connexion/register
+url: http://localhost:8081/index.php/connexion
 name: Créer compte
 description: ""
 method: PUT

@@ -1,9 +1,9 @@
 _id: req_2d7b398179ef4f6a906bc3472f04e747
 type: Request
 parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
-modified: 1707679974800
+modified: 1707689520823
 created: 1707483402109
-url: http://localhost:8081/index.php/appart/create
+url: http://localhost:8081/index.php/appart
 name: Appart2
 description: ""
 method: POST

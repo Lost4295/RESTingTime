@@ -1,12 +1,12 @@
-_id: req_250ecee18ff849eda09bedc7ecb6dc7b
+_id: req_946af31820d44f8eb0312546b08ee8df
 type: Request
 parentId: fld_7013c5a0434640f392e9501e611911ce
-modified: 1707750005438
-created: 1707661848499
+modified: 1707753543892
+created: 1707753267883
 url: http://localhost:8081/index.php/reservation
-name: Réservations
+name: Créer une réservation
 description: ""
-method: GET
+method: POST
 body: {}
 parameters: []
 headers:
@@ -17,7 +17,7 @@ authentication:
   disabled: false
   username: Test
   password: Toto
-metaSortKey: -1707661848500
+metaSortKey: -1707753267883
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
