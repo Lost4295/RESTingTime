@@ -3,6 +3,7 @@ require_once 'allcontrollers.php';
 require 'hashmap.php';
 require_once 'auth.php';
 require_once 'exceptions.php';
+require_once 'usefulfunctions.php';
 
 
 

@@ -106,4 +106,15 @@ class Appart
             throw new BddMissingParameterException("Missing mandatory parameters");
         }
     }
+
+
+    public function changeAppartAvailability($appart)
+    {
+        $query = "UPDATE appartement SET available = NOT available WHERE id = $1";
+        $result = @pg_query_params($this->connection, $query, [$appart]);
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+        }
+        return pg_fetch_assoc($result);
+    }
 }

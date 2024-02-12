@@ -93,3 +93,4 @@ function login($json)
         throw new MissingParameterException('Missing parameter !');
     }
 }
+

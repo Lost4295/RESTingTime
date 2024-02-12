@@ -1,6 +1,5 @@
 <?php
 
-
 $hashmap = [
     "connexion" => [
         "" => [
@@ -11,7 +10,6 @@ $hashmap = [
             "DELETE" => "deleteAccount"
         ]
     ],
-
     "appart" => [
         "" => [
             "POST" => "create",
@@ -21,12 +19,12 @@ $hashmap = [
         ]
     ],
     "reservation" => [ // La vous mettez le $path / le préfix des fonctions du controller (soit normalement le nom du dossier)
-    ""=> // ici la route spécifique (exemple : /template/create donc create est la route spécifique)
+        "" => // ici la route spécifique (exemple : /template/create donc create est la route spécifique)
         [
-            "POST" => "notImplemented",      // exemple de fonction appelée dans le controller
-            "GET" => "notImplemented",          // exemple de fonction appelée dans le controller
-            "DELETE" => "notImplemented",    // exemple de fonction appelée dans le controller
-            "PUT" => "notImplemented"    // exemple de fonction appelée dans le controller
+            "POST" => "create",      // exemple de fonction appelée dans le controller
+            "GET" => "get",          // exemple de fonction appelée dans le controller
+            "DELETE" => "delete",    // exemple de fonction appelée dans le controller
+            "PUT" => "modify"    // exemple de fonction appelée dans le controller
         ]
     ]
 ];

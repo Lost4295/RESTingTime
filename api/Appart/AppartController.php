@@ -67,7 +67,7 @@ function Appartmodify($json)
 {
     try {
         modifyAppart($json ?? $_POST,);
-        echo json_encode(["message" => 'Appart modify', "status" => 200]);
+        echo json_encode(["message" => 'Appart modified', "status" => 200]);
     } catch (BddConnexionException | BddBadRequestException $e) {
 
         http_response_code(500);

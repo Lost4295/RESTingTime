@@ -61,7 +61,6 @@ class Connexion
         }
         return pg_fetch_assoc($result);
     }
-
     public function createUser($first_Name, $last_Name, $email, $username, $password)
     {
         $query = 'INSERT INTO users (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
@@ -128,5 +127,15 @@ class Connexion
         } else {
             throw new BddMissingParameterException("Missing mandatory parameters");
         }
+    }
+
+
+    public function modifyStatus($user, $status){
+        $query = "UPDATE users SET status = $1 WHERE id = $2";
+        $result = @pg_query_params($this->connection, $query, [$status, $user]);
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "...")); // Truncate the error message to 30 characters
+        }
+        return pg_fetch_assoc($result);
     }
 }
