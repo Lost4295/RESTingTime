@@ -1,5 +1,4 @@
 <?php
-
 require_once 'Connexion/ConnexionService.php';
 function handleAuth()
 {
@@ -25,7 +24,8 @@ function handleAuth()
     if (empty($_SERVER['PHP_AUTH_DIGEST'])) {
         header('HTTP/1.1 401 Unauthorized');
         header('WWW-Authenticate: Digest realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
-        echo ('realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');
+        // echo ('realm="' . $realm . '",qop="auth",nonce="' . uniqid() . '",opaque="' . md5($realm) . '"');  // nécessaires que  pour le front
+        echo 'You need to be authenticated to view this ressource.';
         die();
     }
 
@@ -89,3 +89,30 @@ function format(&$users)
 
 // echo json_decode($final)->message;
 
+
+function testStatus($status)
+{
+    $tableau = ["admin"=>null, "propriétaire"=>null, "locataire"=>null, "user"=>null];
+    if ($status >=8) {
+        $tableau["admin"] = true;
+        $status -= 8;
+    }
+    if ($status >=4) {
+        $tableau["propriétaire"] = true;
+        $status -= 4;
+    }
+    if ($status >=2){
+        $tableau["locataire"] = true;
+        $status -= 2;
+    }
+    if ($status >=1){
+        $tableau["user"] = true;
+        $status -= 1;
+    }
+    return $tableau;
+}
+
+function callController(string $params, $json)
+{
+    $params($json);
+}

@@ -3,91 +3,164 @@
 require_once 'AppartService.php';
 
 
-function Appartcreate($json)
+function appartCreate($json)
 {
     try {
-        ccr2($json ?? $_POST);
-        echo json_encode(['message' => 'Appart created', 'status' => 200]);
-    } catch (MissingParameterException $e) {
-        http_response_code(400);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
-        exit();
-    } catch (BddConnexionException | BddBadRequestException $e) {
+        $res = ccr2($json ?? $_POST);
+        echo json_encode(['message' => 'Appart created.', 'status' => 200]);
+    } catch (BddConnexionException $e ) {
         http_response_code(500);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 500]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
+        exit();
+    } catch ( BddBadRequestException | BadRequestException $e) {
+        http_response_code(400);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (BddNotFoundException | NotFoundException $e) {
+        http_response_code(404);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
+        exit();
+    } catch (UnauthorizedException $e) {
+        http_response_code(401);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
+        exit();
+    } catch (MissingParameterException | BddMissingParameterException $e) {
+        http_response_code(406);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (ForbiddenException $e) {
+        http_response_code(403);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 403]);
         exit();
     }
 }
 
-function Appartget($json)
+function appartGet($json)
 {
     try {
         $res = getappars($json ?? $_POST);
         echo json_encode(["message" => $res, "status" => 200]);
-    } catch (MissingParameterException $e) {
-        http_response_code(400);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
-        exit();
-    } catch (BddConnexionException | BddBadRequestException $e) {
+    } catch (BddConnexionException $e ) {
         http_response_code(500);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 500]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
         exit();
-    } catch (BddNotFoundException $e) {
+    } catch ( BddBadRequestException | BadRequestException $e) {
+        http_response_code(400);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (BddNotFoundException | NotFoundException $e) {
         http_response_code(404);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 404]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
+        exit();
+    } catch (UnauthorizedException $e) {
+        http_response_code(401);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
+        exit();
+    } catch (MissingParameterException | BddMissingParameterException $e) {
+        http_response_code(406);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (ForbiddenException $e) {
+        http_response_code(403);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 403]);
         exit();
     }
 }
 
-function Appartdelete($json)
+function appartDelete($json)
 {
     try {
         deleteAppart($json ?? $_POST);
         echo json_encode(["message" => 'Appart suprimé', "status" => 200]);
-    } catch (BddConnexionException | BddBadRequestException | BadRequestException $e) {
+    } catch (BddConnexionException $e ) {
         http_response_code(500);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 500]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
         exit();
-    } catch (BddNotFoundException $e) {
+    } catch ( BddBadRequestException | BadRequestException $e) {
+        http_response_code(400);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (BddNotFoundException | NotFoundException $e) {
         http_response_code(404);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 404]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
         exit();
     } catch (UnauthorizedException $e) {
         http_response_code(401);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 401]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
-        http_response_code(400);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        http_response_code(406);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (ForbiddenException $e) {
+        http_response_code(403);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 403]);
         exit();
     }
 }
 
-function Appartmodify($json)
+function appartModify($json)
 {
     try {
         modifyAppart($json ?? $_POST);
-        echo json_encode(["message" => 'Appart modify', "status" => 200]);
-    } catch (BddConnexionException | BddBadRequestException $e) {
-
+        echo json_encode(["message" => 'Appart modified', "status" => 200]);
+    } catch (BddConnexionException $e ) {
         http_response_code(500);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 500]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
+        exit();
+    } catch ( BddBadRequestException | BadRequestException $e) {
+        http_response_code(400);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
         exit();
     } catch (BddNotFoundException | NotFoundException $e) {
         http_response_code(404);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 404]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
         exit();
     } catch (UnauthorizedException $e) {
         http_response_code(401);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 401]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
-        http_response_code(400);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        http_response_code(406);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
         exit();
-    }catch (ForbiddenException  $e) {
+    } catch (ForbiddenException $e) {
         http_response_code(403);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 403]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 403]);
         exit();
     }
+}
+
+function appartDisponibility($json){
+    try {
+        $res= modifyAppartDisponibility($json ?? $_POST);
+        $not = $res == 't' ? 'now available' : 'not available anymore';
+        echo json_encode(["message" => 'Appart modified. It is '.$not. '.', "status" => 200]);
+    } catch (BddConnexionException $e ) {
+        http_response_code(500);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 500]);
+        exit();
+    } catch ( BddBadRequestException | BadRequestException $e) {
+        http_response_code(400);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (BddNotFoundException | NotFoundException $e) {
+        http_response_code(404);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
+        exit();
+    } catch (UnauthorizedException $e) {
+        http_response_code(401);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 401]);
+        exit();
+    } catch (MissingParameterException | BddMissingParameterException $e) {
+        http_response_code(406);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        exit();
+    } catch (ForbiddenException $e) {
+        http_response_code(403);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 403]);
+        exit();
+    }
+    
+    
 }

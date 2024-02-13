@@ -22,7 +22,8 @@ class Appart
     {
         $query = "SELECT * FROM appartement";
         if ($id) {
-            $query.= " WHERE id = $1"; 
+            $query.= " WHERE id = $1";
+            $params = true;
         $result = @pg_query_params($this->connection, $query, [$id]);
         } else {
             $result = @pg_query($this->connection, $query);
@@ -35,12 +36,57 @@ class Appart
             $rows[] = $row;
         }
 
+        if (empty($rows) && $params) {
+            throw new BddNotFoundException("No appartement found with this id !");
+        }
+
         return $rows;
     }
 
+
+    
+    public function getUserApparts($userId)
+    {
+        $query = "SELECT * FROM appartement WHERE creator = $1";
+            $params = true;
+        $result = @pg_query_params($this->connection, $query, [$userId]);
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+        }
+        $rows = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+
+        if (empty($rows) && $params) {
+            throw new BddNotFoundException("No appartement found with this id !");
+        }
+
+        return $rows;
+    }
+
+
+    
+    public function getUserApparts($userId)
+    {
+        $query = "SELECT * FROM appartement WHERE creator = $1";
+            $params = true;
+        $result = @pg_query_params($this->connection, $query, [$userId]);
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+        }
+        $rows = [];
+        while ($row = pg_fetch_assoc($result)) {
+            $rows[] = $row;
+        }
+
+        return $rows;
+    }
+
+
     public function createAppart($superficie, $max_pers, $price, $address, $creator)
     {
-        $query = 'INSERT INTO appartement (superficie, max_pers, price, address, creator) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
+        $query = 'INSERT INTO appartement (superficie, max_pers, price, address, creator, create_date) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$superficie, $max_pers, $price,  $address, $creator]);
         if (!$result) {
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30000) . "...")); // Truncate the error message to 30 characters
@@ -48,10 +94,10 @@ class Appart
         return pg_fetch_assoc($result);
     }
 
-    public function removeAppart($creator)
+    public function removeAppart($id)
     {
-        $query = "DELETE FROM appartement WHERE creator = $1";
-        $result = @pg_query_params($this->connection, $query, [$creator]);
+        $query = "DELETE FROM appartement WHERE id = $1";
+        $result = @pg_query_params($this->connection, $query, [$id]);
         if (!$result) {
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
 
@@ -60,7 +106,7 @@ class Appart
     }
 
 
-    public function modifyAppart($superficie = "", $max_pers = "", $price = "", $address = "", $creator = "")
+    public function modifyAppart($id, $superficie = "", $max_pers = "", $price = "", $address = "", $creator = "")
     {
         $query = "UPDATE appartement SET";
         $c = 1;
@@ -93,10 +139,19 @@ class Appart
             $query .= " address = $$c ";
             $c++;
             $table[] = $address;
-        }
+        }        
         if (!empty($creator)) {
-            $query .= "WHERE id = $$c";
+            if ($c > 1) {
+                $query .= ", ";
+            }
+            $query .= " creator = $$c ";
+            $c++;
             $table[] = $creator;
+        }
+        $query .= ",  create_date = NOW() ";
+        if (!empty($id)) {
+            $query .= "WHERE id = $$c";
+            $table[] = $id;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
                 throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 300) . "...")); // Truncate the error message to 30 characters
@@ -105,5 +160,16 @@ class Appart
         } else {
             throw new BddMissingParameterException("Missing mandatory parameters");
         }
+    }
+
+
+    public function changeAppartAvailability($appart)
+    {
+        $query = "UPDATE appartement SET available = NOT available WHERE id = $1";
+        $result = @pg_query_params($this->connection, $query, [$appart]);
+        if (!$result) {
+            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+        }
+        return pg_fetch_assoc($result);
     }
 }

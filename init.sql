@@ -14,7 +14,7 @@ CREATE TABLE appartement (
     create_date timestamp,
     superficie integer NOT NULL,
     max_pers integer NOT NULL,
-    address text UNIQUE NOT NULL,
+    address text NOT NULL,
     available boolean NOT NULL DEFAULT true,
     price float NOT NULL,
     creator integer REFERENCES users(id)
@@ -29,3 +29,11 @@ CREATE TABLE reservation (
     appartement_id integer REFERENCES appartement(id),
     price float NOT NULL
 );
+
+INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'admin', 'admin', 'admin@admin', 'admin', 'admin', 9);
+INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'loc', 'loc', 'loc@loc', 'loc', 'loc', 5);
+INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'user', 'user', 'user@user', 'user', 'user', 1);
+INSERT INTO appartement (create_date, superficie, max_pers, address, available, price, creator) VALUES (NOW(), 100, 4, 'rue de la paix', true, 100, 1);
+INSERT INTO appartement (create_date, superficie, max_pers, address, available, price, creator) VALUES (NOW(), 200, 6, 'rue de la guerre', true, 200, 1);
+INSERT INTO reservation (create_date, start_date, end_date, user_id, appartement_id, price) VALUES (NOW(), '2020-01-01', '2020-01-10', 2, 1, 100);
+INSERT INTO reservation (create_date, start_date, end_date, user_id, appartement_id, price) VALUES (NOW(), '2020-01-01', '2020-01-10', 2, 2, 200);
