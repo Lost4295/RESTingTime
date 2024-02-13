@@ -30,8 +30,8 @@ CREATE TABLE reservation (
     price float NOT NULL
 );
 
-INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'admin', 'admin', 'admin@admin', 'admin', 'admin', 8);
-INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'loc', 'loc', 'loc@loc', 'loc', 'loc', 2);
+INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'admin', 'admin', 'admin@admin', 'admin', 'admin', 9);
+INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'loc', 'loc', 'loc@loc', 'loc', 'loc', 5);
 INSERT INTO users (create_date, username, password, email, first_name, last_name, status) VALUES (NOW(), 'user', 'user', 'user@user', 'user', 'user', 1);
 INSERT INTO appartement (create_date, superficie, max_pers, address, available, price, creator) VALUES (NOW(), 100, 4, 'rue de la paix', true, 100, 1);
 INSERT INTO appartement (create_date, superficie, max_pers, address, available, price, creator) VALUES (NOW(), 200, 6, 'rue de la guerre', true, 200, 1);
