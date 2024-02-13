@@ -94,7 +94,11 @@ function getaccs($json)
         $id = $json->id;
     }
     $conn = new Connexion();
-    return $conn->getUsers($id ?? null);
+    $users = $conn->getUsers($id ?? null);
+    if (!$users && $id) {
+        throw new NotFoundException('User not found !');
+    }
+    return $users;
 }
 
 function getaccsps()
