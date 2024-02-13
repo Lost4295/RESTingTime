@@ -51,12 +51,12 @@ class Reservation
         }
 
 
-        public function getReservation($id)
+        public function getReservation($id = null)
         {
             $query = "SELECT * FROM reservation";
             $params = false;
-            if ($id) {
-                $query.= " WHERE id = $1"; 
+            if ($id !== null) {
+                $query.= " WHERE id = $1";
                 $params = true;
             $result = @pg_query_params($this->connection, $query, [$id]);
             } else {
@@ -72,7 +72,7 @@ class Reservation
             }
 
             if (empty($rows) && $params) {
-                throw new BddNotFoundException("No reservation found");
+                throw new BddNotFoundException("No reservation found with that ID !");
             }
     
             return $rows;
@@ -113,7 +113,8 @@ class Reservation
                 $c++;
                 $table[] = $end;
             }
-            $query .= "WHERE id = $$c";
+
+            $query .= ",  create_date = NOW() WHERE id = $$c";
             $table[] = $id;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
@@ -130,12 +131,32 @@ class Reservation
             }
             return pg_fetch_assoc($result);
         }
-// à vous de jouer !
-// ...
-// ...
-// ...
-// ...
-// ...
-// ...
+
+        public function getUserReservations($userId, $appart = null)
+        {
+            $query = "SELECT * FROM reservation WHERE user_id = $1";
+            $params = false;
+            $table = [$userId];
+            if ($appart !== null) {
+                $query.= " AND appartement_id = $2";
+                $table[]= $appart;
+                $params = true;
+            } 
+            $result = @pg_query_params($this->connection, $query, $table );
+            if (!$result) {
+                throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
+            }
+
+            $rows = [];
+            while ($row = pg_fetch_assoc($result)) {
+                $rows[] = $row;
+            }
+
+            if (empty($rows) && $params) {
+                throw new BddNotFoundException("No reservation found with the given informations !");
+            }
+
+            return $rows;
+        }
 
 }

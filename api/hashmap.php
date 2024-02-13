@@ -3,28 +3,36 @@
 $hashmap = [
     "connexion" => [
         "" => [
-            "PUT" => "createAccount",
-            "POST" => "login",
-            "GET" => "getAccount",
-            "PATCH" => "modifyAccountInfo",
-            "DELETE" => "deleteAccount"
+            "PUT" => "CreateAccount",
+            "POST" => "Login",
+            "GET" => "GetAccount",
+            "PATCH" => "ModifyAccountInfo",
+            "DELETE" => "DeleteAccount"
+        ],
+        "getroles" => [
+            "GET" => "Getroles"
         ]
     ],
     "appart" => [
         "" => [
-            "POST" => "create",
-            "GET" => "get",
-            "PATCH" => "modify",
-            "DELETE" => "delete"
+            "POST" => "Create",
+            "GET" => "Get",
+            "PATCH" => "Modify",
+            "DELETE" => "Delete"
+        ],
+        "disponibility" => [
+            "PATCH" => "Disponibility"
         ]
     ],
     "reservation" => [ // La vous mettez le $path / le préfix des fonctions du controller (soit normalement le nom du dossier)
         "" => // ici la route spécifique (exemple : /template/create donc create est la route spécifique)
         [
-            "POST" => "create",      // exemple de fonction appelée dans le controller
-            "GET" => "get",          // exemple de fonction appelée dans le controller
-            "DELETE" => "delete",    // exemple de fonction appelée dans le controller
-            "PUT" => "modify"    // exemple de fonction appelée dans le controller
+            "POST" => "Create",      // exemple de fonction appelée dans le controller
+            "GET" => "Get",          // exemple de fonction appelée dans le controller
+            "DELETE" => "Delete",    // exemple de fonction appelée dans le controller
+            "PATCH" => "Modify"    // exemple de fonction appelée dans le controller
         ]
-    ]
+    ],
+
+
 ];

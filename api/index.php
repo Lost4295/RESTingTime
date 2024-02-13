@@ -1,9 +1,8 @@
 <?php
 require_once 'allcontrollers.php';
-require 'hashmap.php';
-require_once 'auth.php';
-require_once 'exceptions.php';
 require_once 'usefulfunctions.php';
+require_once 'exceptions.php';
+require 'hashmap.php';
 
 
 
@@ -35,6 +34,11 @@ if ($method === "OPTIONS") {
     exit();
 }
 
+
+if ($method === "GET") { // Si la méthode est GET, alors on récupère les paramètres de la requête, en ignorant le body
+    $json = (object) $_GET;
+}
+
 // On vérifie que le path demandé est bien un path existant
 if (!array_key_exists($path, $hashmap) || !array_key_exists($secpath, $hashmap[$path])) {
     // Si le chemin demandé n'existe pas, alors on renvoie le header HTTP "Not Found"
@@ -47,13 +51,10 @@ if (!array_key_exists($method, $hashmap[$path][$secpath])) {
     exit();
 } else {
     // Si la méthode demandée existe, alors on appelle la route correspondante
-    callController(ucwords($path) . $hashmap[$path][$secpath][$method], $json);
+    callController($path . ucfirst($hashmap[$path][$secpath][$method]), $json);
 }
 
 
-function callController(string $params, $json)
-{
-    $params($json);
-}
+
 
 

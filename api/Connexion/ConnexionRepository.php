@@ -18,7 +18,7 @@ class Connexion
     }
 
 
-    public function getAllUsers($id)
+    public function getUsers($id)
     {
         $query = "SELECT * FROM users";
         if ($id) {
@@ -31,6 +31,7 @@ class Connexion
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
 
+        $rows = [];
         while ($row = pg_fetch_assoc($result)) {
             $rows[] = $row;
         }
@@ -46,13 +47,15 @@ class Connexion
             throw new BddConnexionException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
         }
 
+        $rows = [];
+
         while ($row = pg_fetch_assoc($result)) {
             $rows[] = $row;
         }
 
         return $rows;
     }
-    public function getUser($email)
+    public function getUserWithEmail($email)
     {
         $query = "SELECT * FROM users WHERE email = $1";
         $result = @pg_query_params($this->connection, $query, [$email]);
@@ -63,7 +66,7 @@ class Connexion
     }
     public function createUser($first_Name, $last_Name, $email, $username, $password)
     {
-        $query = 'INSERT INTO users (first_name, last_name, email, username, password) VALUES ($1, $2, $3, $4, $5) RETURNING (id)';
+        $query = 'INSERT INTO users (first_name, last_name, email, username, password, create_date) VALUES ($1, $2, $3, $4, $5, NOW()) RETURNING (id)';
         $result = @pg_query_params($this->connection, $query, [$first_Name, $last_Name, $email,  $username, $password]);
         if (!$result) {
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
@@ -73,7 +76,7 @@ class Connexion
 
     public function removeUser($id)
     {
-        $query = "DELETE FROM users WHERE email = $1";
+        $query = "DELETE FROM users WHERE id = $1";
         $result = @pg_query_params($this->connection, $query, [$id]);
         if (!$result) {
             throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "...")); // Truncate the error message to 30 characters
@@ -82,7 +85,7 @@ class Connexion
         return pg_fetch_assoc($result);
     }
 
-    public function modifyUser($first_name, $last_name, $username , $password , $email )
+    public function modifyUser($id ,$first_name, $last_name, $username, $password, $email)
     {
         $query = "UPDATE users SET";
         $c = 1;
@@ -117,8 +120,17 @@ class Connexion
             $table[] = $username;
         }
         if (!empty($email)) {
-            $query .= "WHERE email = $$c ";
+            if ($c > 1) {
+                $query .= ", ";
+            }
+            $query .= " email = $$c ";
+            $c++;
             $table[] = $email;
+        }
+        $query .= ",  create_date = NOW() ";
+        if (!empty($id)) {
+            $query .= "WHERE id = $$c ";
+            $table[] = $id;
             $result = @pg_query_params($this->connection, $query, $table);
             if (!$result) {
                 throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 3000) . "...")); // Truncate the error message to 30 characters
@@ -130,7 +142,8 @@ class Connexion
     }
 
 
-    public function modifyStatus($user, $status){
+    public function modifyStatus($user, $status)
+    {
         $query = "UPDATE users SET status = $1 WHERE id = $2";
         $result = @pg_query_params($this->connection, $query, [$status, $user]);
         if (!$result) {
