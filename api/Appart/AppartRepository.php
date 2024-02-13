@@ -67,21 +67,6 @@ class Appart
 
 
     
-    public function getUserApparts($userId)
-    {
-        $query = "SELECT * FROM appartement WHERE creator = $1";
-            $params = true;
-        $result = @pg_query_params($this->connection, $query, [$userId]);
-        if (!$result) {
-            throw new BddBadRequestException("Query failed : " . str_replace("\"", "`", substr(pg_last_error($this->connection), 8, 30) . "...")); // Truncate the error message to 30 characters
-        }
-        $rows = [];
-        while ($row = pg_fetch_assoc($result)) {
-            $rows[] = $row;
-        }
-
-        return $rows;
-    }
 
 
     public function createAppart($superficie, $max_pers, $price, $address, $creator)
