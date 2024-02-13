@@ -1,7 +1,7 @@
 _id: req_da83233876eb4eaf9bea6937e88a43d3
 type: Request
 parentId: fld_7013c5a0434640f392e9501e611911ce
-modified: 1707754063450
+modified: 1707814542378
 created: 1707753294837
 url: http://localhost:8081/index.php/reservation
 name: Effacer réservation
@@ -11,7 +11,7 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"id":45
+    	"id":4
     }
 parameters: []
 headers:

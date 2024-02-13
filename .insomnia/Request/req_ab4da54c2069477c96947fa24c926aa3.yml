@@ -1,32 +1,27 @@
-_id: req_2d7b398179ef4f6a906bc3472f04e747
+_id: req_ab4da54c2069477c96947fa24c926aa3
 type: Request
-parentId: fld_bb03f71c73874bbc9e48f379d7dad680
-modified: 1707814973153
-created: 1707483402109
-url: http://localhost:8081/index.php/appart
-name: Appart2
+parentId: fld_7013c5a0434640f392e9501e611911ce
+modified: 1707819988804
+created: 1707819986178
+url: http://localhost:8081/index.php/reservation
+name: Modifier une réservation
 description: ""
-method: POST
+method: PATCH
 body:
   mimeType: application/json
-  text: |-
-    {
-    	"superficie": "58",
-      "max_pers": "3",
-      "price": "10000",
-      "address": "25 rue erard",
-      "creator": "1"
-    }
+  text: ""
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
+  - name: User-Agent
+    value: insomnia/2023.5.8
 authentication:
   type: digest
   disabled: false
   username: Test
   password: Toto
-metaSortKey: -1707814973107
+metaSortKey: -1707730413037.25
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

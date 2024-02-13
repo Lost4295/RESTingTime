@@ -1,15 +1,25 @@
 _id: req_946af31820d44f8eb0312546b08ee8df
 type: Request
 parentId: fld_7013c5a0434640f392e9501e611911ce
-modified: 1707753543892
+modified: 1707826194295
 created: 1707753267883
 url: http://localhost:8081/index.php/reservation
 name: Créer une réservation
 description: ""
 method: POST
-body: {}
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"start":"10/01/2023",
+    	"end":"11/01/2023",
+    	"user":"1",
+    	"appart":"6"
+    }
 parameters: []
 headers:
+  - name: Content-Type
+    value: application/json
   - name: User-Agent
     value: insomnia/2023.5.8
 authentication:

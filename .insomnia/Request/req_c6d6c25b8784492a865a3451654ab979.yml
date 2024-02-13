@@ -1,21 +1,17 @@
-_id: req_2d7b398179ef4f6a906bc3472f04e747
+_id: req_c6d6c25b8784492a865a3451654ab979
 type: Request
-parentId: fld_bb03f71c73874bbc9e48f379d7dad680
-modified: 1707814973153
-created: 1707483402109
-url: http://localhost:8081/index.php/appart
-name: Appart2
+parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+modified: 1707826208638
+created: 1707819710409
+url: http://localhost:8081/index.php/appart/disponibility
+name: Modifier dispo de l'appart
 description: ""
-method: POST
+method: PATCH
 body:
   mimeType: application/json
   text: |-
     {
-    	"superficie": "58",
-      "max_pers": "3",
-      "price": "10000",
-      "address": "25 rue erard",
-      "creator": "1"
+    	"id": "6"
     }
 parameters: []
 headers:
@@ -26,7 +22,7 @@ authentication:
   disabled: false
   username: Test
   password: Toto
-metaSortKey: -1707814973107
+metaSortKey: -1707483462449
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

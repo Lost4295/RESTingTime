@@ -1,7 +1,7 @@
 _id: req_dba74ad9a3554f80acb0bded60666a5a
 type: Request
 parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
-modified: 1707689509599
+modified: 1707833797442
 created: 1707483475039
 url: http://localhost:8081/index.php/appart
 name: Supprimer Appart
@@ -11,14 +11,14 @@ body:
   mimeType: application/json
   text: |-
     {
-    	"creator": "1"
+    	"id": "1"
     }
 parameters: []
 headers:
   - name: Content-Type
     value: application/json
 authentication: {}
-metaSortKey: -1707483475039
+metaSortKey: -1707483462349
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true

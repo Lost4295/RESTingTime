@@ -1,7 +1,7 @@
 _id: req_13104fc9f865450aa1f54a327d6d6d72
 type: Request
 parentId: fld_cfbc70c5af01444fa20ebf451b82c069
-modified: 1707684912748
+modified: 1707833800597
 created: 1707301038193
 url: http://localhost:8081/index.php/connexion
 name: Récupérer tous les comptes
@@ -9,11 +9,12 @@ description: ""
 method: GET
 body:
   mimeType: application/json
-  text: |-
-    {
-    	"id":"4"
-    }
-parameters: []
+  text: ""
+parameters:
+  - id: pair_00581182070a462e8e80e3dd63695cce
+    name: id
+    value: "1"
+    description: ""
 headers:
   - name: Content-Type
     value: application/json
@@ -21,10 +22,10 @@ headers:
     value: insomnia/2023.5.8
 authentication:
   type: digest
-  disabled: false
+  disabled: true
   username: ""
   password: ""
-metaSortKey: -1707301038193
+metaSortKey: -1707474542079
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
