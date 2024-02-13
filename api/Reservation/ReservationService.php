@@ -112,7 +112,7 @@ function delenr($json)
         }
         $status = testStatus($actUser["status"]);
         if ($status["locataire"]) {
-            $conn1->modifyStatus($userId, $user["status"] - 2);
+            $conn1->modifyStatus($userId, $actUser["status"] - 2);
         }
     }
 }

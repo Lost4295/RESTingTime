@@ -26,7 +26,7 @@ function appartCreate($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -58,7 +58,7 @@ function appartGet($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -90,7 +90,7 @@ function appartDelete($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -122,7 +122,7 @@ function appartModify($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -154,7 +154,7 @@ function appartDisponibility($json){
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message'=> $e->getMessage(),'status'=> 400]);
+        echo json_encode(['message'=> $e->getMessage(),'status'=> 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);

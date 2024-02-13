@@ -28,7 +28,7 @@ function reservationCreate($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -61,7 +61,7 @@ function reservationGet($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -94,7 +94,7 @@ function reservationDelete($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -127,7 +127,7 @@ function reservationModify($json)
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
@@ -160,7 +160,7 @@ function reservationNotImplemented()
         exit();
     } catch (MissingParameterException | BddMissingParameterException $e) {
         http_response_code(406);
-        echo json_encode(['message' => $e->getMessage(), 'status' => 400]);
+        echo json_encode(['message' => $e->getMessage(), 'status' => 406]);
         exit();
     } catch (ForbiddenException $e) {
         http_response_code(403);
