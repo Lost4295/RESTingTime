@@ -1,7 +1,7 @@
 _id: req_03a9a31527964151ba712623649d796a
 type: Request
 parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
-modified: 1707833794495
+modified: 1707833977527
 created: 1707483449859
 url: http://localhost:8081/index.php/appart
 name: Voir tout les apparts
@@ -11,8 +11,9 @@ body: {}
 parameters:
   - id: pair_3e00014694f44c5f8f3675c4127dc52d
     name: id
-    value: ""
+    value: "7"
     description: ""
+    disabled: true
 headers: []
 authentication: {}
 metaSortKey: -1707485064880

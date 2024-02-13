@@ -1,18 +1,14 @@
-_id: req_250ecee18ff849eda09bedc7ecb6dc7b
+_id: req_6c2d43d0cbe14583b742eb296b935da1
 type: Request
-parentId: fld_7013c5a0434640f392e9501e611911ce
-modified: 1707838425588
-created: 1707661848499
-url: http://localhost:8081/index.php/reservation
-name: Réservations
+parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+modified: 1707835411632
+created: 1707834944741
+url: http://localhost:8081/index.php/connexion/getroles
+name: Connaitre ses rôles
 description: ""
 method: GET
 body: {}
-parameters:
-  - id: pair_05f77302c3b64ff5a17717147f10368d
-    name: ""
-    value: ""
-    description: ""
+parameters: []
 headers:
   - name: User-Agent
     value: insomnia/2023.5.8
@@ -21,7 +17,7 @@ authentication:
   disabled: false
   username: Test
   password: Toto
-metaSortKey: -1707753267983
+metaSortKey: -1707834944741
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
