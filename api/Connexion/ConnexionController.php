@@ -17,6 +17,7 @@
         } catch (BddNotFoundException | NotFoundException $e) {
             http_response_code(404);
             echo json_encode(['message'=> $e->getMessage(),'status'=> 404]);
+            
             exit();
         } catch (UnauthorizedException $e) {
             http_response_code(401);

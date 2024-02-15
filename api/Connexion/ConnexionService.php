@@ -62,22 +62,18 @@ function modifyUser($json)
     $conn->modifyUser($userId, $firstName, $lastName, $username, $password, $email, $status);
 }
 
-function deleteUser($json)
+function edeleteUser($json)
 {
     $final = json_decode(handleAuth());
     if (!$final->ok) {
         throw new UnauthorizedException($final->message);
     }
     $userId = $final->id;
-    if (!is_object($json)) {
-        throw new BadRequestException('Missing body !');
+    if (is_object($json) && isset($json->id)) {
+        $id = $json->id;
     }
-    if (!isset($json->id)) {
-        throw new MissingParameterException('Missing parameter !');
-    }
-    $id = $json->id;
     $conn = new Connexion();
-    $user = $conn->getUsers($id)[0];
+    $user = $conn->getUsers($userId)[0];
     if (!$user) {
         throw new NotFoundException('User not found !');
     }
@@ -85,7 +81,17 @@ function deleteUser($json)
     if ($user['id'] !== $userId && !$status['admin']) {
         throw new ForbiddenException('You can\'t delete this account !');
     }
-    $conn->removeUser($id);
+    if ($status['admin']) {
+        if (!is_object($json)){
+            throw new BadRequestException('Missing body !');
+        }
+        if (!isset($id)) {
+            throw new MissingParameterException('Missing parameter !');
+        }
+        $conn->removeUser($id);
+    } else {
+        $conn->removeUser($userId);
+    }
 }
 
 function getaccs($json)

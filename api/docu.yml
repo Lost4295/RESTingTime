@@ -1,0 +1,1106 @@
+openapi: 3.0.3
+info:
+  title: restingtime-api
+  description: Bienvenue dans la documentation du projet de Développement Web et API de RESTpatrop.
+  # description: |-
+  #   This is a sample Pet Store Server based on the OpenAPI 3.0 specification.  You can find out more about
+  #   Swagger at [https://swagger.io](https://swagger.io). In the third iteration of the pet store, we've switched to the design first approach!
+  #   You can now help us improve the API whether it's by making changes to the definition itself or to the code.
+  #   That way, with time, we can improve the API in general, and expose some of the new features in OAS3.
+
+  #   _If you're looking for the Swagger 2.0/OAS 2.0 version of Petstore, then click [here](https://editor.swagger.io/?url=https://petstore.swagger.io/v2/swagger.yaml). Alternatively, you can load via the `Edit > Load Petstore OAS 2.0` menu option!_
+
+  #   Some useful links:
+  #   - [The Pet Store repository](https://github.com/swagger-api/swagger-petstore)
+  #   - [The source API definition for the Pet Store](https://github.com/swagger-api/swagger-petstore/blob/master/src/main/resources/openapi.yaml)
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: groupbqy@domain.io
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  version: 1.0.1
+externalDocs:
+  description: Find out more about Swagger
+  url: http://swagger.io
+servers:
+  # Added by API Auto Mocking Plugin
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/MONITALAND/Api/1.0.1
+  - description: Localhost, sur le port 8081 (api du cours)
+    url: http://localhost:8081
+tags:
+  - name: Connexion
+    description: Opérations concernant la connexion d'un utilisateur
+  - name: Appart
+    description: Opérations concernant l'utilisation des appartements
+  - name: Réservation
+    description: Opérations concernant les réservations.
+paths:
+  /connexion:
+    get: ### GOOD !
+      tags:
+        - Connexion
+      summary: Renvoie les utilisateurs existants.
+      description: Renvoie la liste des informations concernant les utilisateurs existants sur la base de données.
+      operationId: UserAccounts
+      security:
+        - DigestAuth: []
+      parameters:
+        - name: id
+          in: query
+          description: Id du compte à récupérer
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Réussite
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Utilisateur"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    post: ### GOOD !
+      tags:
+        - Connexion
+      summary: Connecte un utiliateur.
+      description: Connecte un utilisateur sur le site à l'aide de ses informations de connexion.
+      operationId: ConnectUser
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Connect"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ConnectReturn"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    put: ### GOOD !
+      tags:
+        - Connexion
+      summary: Crée un nouvel utilisateur.
+      description: Crée un nouvel utilisateur.
+      operationId: CreateUser
+      requestBody:
+        description: Crée un nouvel utilisateur avec les données.
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UtilisateurCreation"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    patch: ### GOOD !
+      tags:
+        - Connexion
+      summary: Modifie les informations de l'utilisateur
+      description: Permet de modifier les informations concernant un utilisateur. La requête ne fonctionne qu'en étant authentifié ou en étant un administrateur.
+      operationId: ModifyUser
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Utilisateur"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    delete: ## GOOD !
+      tags:
+        - Connexion
+      summary: Supprime un utiliateur.
+      description: Permet à un utilisateur de suppprimer son compte, s'il le désire. Les administrateurs authentifiés peuvent également lancer cette requête. Les utilisateurs doivent être authentifiés, avant de supprimer leur compte.
+      operationId: DeleteUser
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Impossible d'effacer un compte qui n'est pas le sien en tant qu'utilisateur
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: L'utilisateur n'a pas été trouvé (requête ne devant pas arriver du fait de l'authentification)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  /connexion/getroles:
+    get: 
+      tags:
+        - Connexion
+      summary: Permet de connaitre ses rôles.
+      description: Permet à l'utilisateur connecté de connaître ses rôles sur la base de données.
+      operationId: UserRoles
+      security:
+        - DigestAuth: []
+      responses:
+        "200":
+          description: Réussite
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    
+  /appart:
+    get: ### GOOD !
+      tags:
+        - Appart
+      summary: Renvoie les apppartements existants.
+      description: Renvoie la liste des informations concernant les appartements existants sur la base de données.
+      operationId: GetApparts
+      parameters:
+        - name: id
+          in: query
+          description: Id de l'appartement à récupérer
+          schema:
+            type: integer
+            format: int64
+      responses:
+        "200":
+          description: Réussite
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Appart"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: Il n'y a aucun appartement correspondant à l'id donné
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    post: ### GOOD !
+      tags:
+        - Appart
+      summary: Crée un appartement.
+      description: Permet à un propriétaire de créer un appartement sur le site.
+      operationId: CreateAppart
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/AppartCreation"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (il faut se connecter)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Des paramétres sont manquants
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    patch: ### GOOD !
+      tags:
+        - Appart
+      summary: Modifie les informations de l'appartement
+      description: Permet de modifier les informations concernant un appartement. La requête ne fonctionne qu'en étant authentifié, et en étant le propriétaire de l'appartement, ou en étant un administrateur.
+      operationId: ModifyAppart
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Appart"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (Non authentifié)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les permissions requises ( non créateur de l'appart ou admin)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    delete: ### GOOD !
+      tags:
+        - Appart
+      summary: Supprime un Appartement.
+      description: Permet à un utilisateur de suppprimer son appartement, s'il le désire. Les administrateurs authentifiés peuvent également lancer cette requête. Les utilisateurs doivent être authentifiés, et posséder l'appartement qu'ils souhaitent supprimer, avant de supprimer leur compte.
+      operationId: DeleteAppart
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Appartement à supprimer
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        "200":
+          description: Réussite de la suppression
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiResponse'
+            application/xml:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (Pas authentifié)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les droits pour supprimer l'appartement
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  /appart/disponibility:
+    patch:
+      tags:
+        - Appart
+      summary: Disponibilité d'un appartement
+      description: Permet de changer la disponibilité d'un appartement si l'utilisateur est administrateur ou user mais qu'il est authentifié.
+      operationId: appartDisponibility
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Appartement à modifier
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        "200":
+          description: Réussite de la modification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Valeur manquante
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (Pas authentifié)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les droits pour supprimer l'appartement
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  /reservation:
+    get:
+      tags:
+        - Réservation
+      summary: Voir une reservation.
+      description: Permet à un utilisateur de voir une réservation, il faut pour cela que l'utilisateur soit authentifié.
+      operationId: ReservationGet
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        "200":
+          description: Réussite 
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Reservation"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (non authentifié)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les droits pour voir la réservation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    post:
+      tags:
+        - Réservation
+      summary: Créer une reservation.
+      description: Permet à l'utilisateur de crée une réservation en étant authentifié.
+      operationId: CreateReservation
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de la réservation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/ReservationCreation"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la création
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client (pas de données)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La page n'a pas été trouvé
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    patch:
+      tags:
+        - Réservation
+      summary: Modifie les réservations
+      description: Permet de modifier les reservations d'un utilisateur, pour cela il faut que l'utilisateur soit authentifié au préalable.
+      operationId: ModifyReservation
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de la réservation
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Reservation"
+        required: true
+      responses:
+        "200":
+          description: Réussite de la modification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit (pas authentifié)
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les droits de modification
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La réservation n'a pas été trouvée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+    delete:
+      tags:
+        - Réservation
+      summary: Supprime une réservation.
+      description: Permet à un utilisateur de suppprimer la réservation, s'il le désire. Les administrateurs authentifiés peuvent également lancer cette requête. Les utilisateurs doivent être authentifiés, avant de supprimer leur réservation.
+      operationId: DeleteReservation
+      requestBody:
+      security:
+        - DigestAuth: []
+      requestBody:
+        description: Informations de connexion
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                  format: int32
+        required: true
+      responses:
+        "200":
+          description: Réussite de la suppression
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "400":
+          description: Erreur côté client
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "401":
+          description: Accès Interdit
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "403":
+          description: Pas les droits pour effacer la réservation
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "404":
+          description: La réservation n'a pas été trouvée
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "406":
+          description: Impossible de servir une réponse qui correspond aux critères définis
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+        "500":
+          description: Erreur liée à la base de données
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/ApiResponse"
+  
+components:
+  schemas:
+    Utilisateur:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        username:
+          type: string
+          example: theUser
+        nom:
+          type: string
+          example: John
+        prenom:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: "12345"
+      xml:
+        name: Utilisateur
+    UtilisateurCreation:
+      type: object
+      properties:
+        username:
+          type: string
+          example: theUser
+        nom:
+          type: string
+          example: John
+        prenom:
+          type: string
+          example: James
+        email:
+          type: string
+          example: john@email.com
+        password:
+          type: string
+          example: "12345"
+      xml:
+        name: Utilisateur
+    ApiResponse:
+      type: object
+      properties:
+        message:
+          type: string
+        status:
+          type: integer
+          format: int32
+      xml:
+        name: "##default"
+    Connect:
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      xml:
+        name: connect
+    ConnectReturn:
+      type: object
+      properties:
+        message:
+          type: object
+          properties:
+            name:
+              type: string
+        status:
+          type: integer
+          format: int32
+      xml:
+        name: connectret
+    Appart:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 5
+        create_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        superficie: 
+          type: integer
+          format: int32
+          example: 52
+        max_pers:
+          type: integer
+          format: int32
+          example: 8
+        address:
+          type: string
+          example: 10 rue de toto
+        available:
+          type: boolean
+        price:
+          type: number
+          example: 56
+        creator:
+          $ref: "#/components/schemas/Utilisateur"
+    Reservation:
+      type: object
+      properties:
+        id:
+          type: integer
+          format: int32
+          example: 5
+        create_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        start_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        end_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        user:
+          $ref: "#/components/schemas/Utilisateur"
+        appartement:
+          $ref: "#/components/schemas/Appart"
+        price:
+          type: number
+          example: 56
+    AppartCreation:
+      type: object
+      properties:
+        create_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        superficie: 
+          type: integer
+          format: int32
+          example: 52
+        max_pers:
+          type: integer
+          format: int32
+          example: 8
+        address:
+          type: string
+          example: 10 rue de toto
+        available:
+          type: boolean
+        price:
+          type: number
+          example: 56
+        creator:
+          type: integer
+          format: int32
+          example: 1
+    ReservationCreation:
+      type: object
+      properties:
+        create_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        start_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        end_date:
+          type: string
+          example: 2024-02-13 12:09:26.93631
+        user:
+          type: integer
+          format: int32
+          example: 1
+        appartement:
+          type: integer
+          format: int32
+          example: 1
+        price:
+          type: number
+          example: 56
+
+  securitySchemes:
+    DigestAuth:
+      type: http
+      scheme: basic
