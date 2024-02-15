@@ -1,0 +1,580 @@
+_type: export
+__export_format: 4
+__export_date: 2024-02-15T08:38:20.810Z
+__export_source: insomnia.desktop.app:v2023.5.8
+resources:
+  - _id: req_250ecee18ff849eda09bedc7ecb6dc7b
+    parentId: fld_7013c5a0434640f392e9501e611911ce
+    modified: 1707851270403
+    created: 1707661848499
+    url: http://localhost:8081/index.php/reservation
+    name: Réservations
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_05f77302c3b64ff5a17717147f10368d
+        name: id
+        value: "14"
+        description: ""
+        disabled: true
+    headers:
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication:
+      type: digest
+      disabled: false
+      username: Test2
+      password: Toto2
+    metaSortKey: -1707753267983
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_7013c5a0434640f392e9501e611911ce
+    parentId: wrk_94ec466f54f143ad8331ec1dc9c95922
+    modified: 1707661845016
+    created: 1707661845016
+    name: Réservations
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1707661845016
+    _type: request_group
+  - _id: wrk_94ec466f54f143ad8331ec1dc9c95922
+    parentId: null
+    modified: 1706879373784
+    created: 1706879373784
+    name: Projet WEB API
+    description: ""
+    scope: collection
+    _type: workspace
+  - _id: req_946af31820d44f8eb0312546b08ee8df
+    parentId: fld_7013c5a0434640f392e9501e611911ce
+    modified: 1707839714505
+    created: 1707753267883
+    url: http://localhost:8081/index.php/reservation
+    name: Créer une réservation
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"start":"10/01/2023",
+        	"end":"11/01/2023",
+        	"user":"7",
+        	"appart":"6"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707753267883
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_ab4da54c2069477c96947fa24c926aa3
+    parentId: fld_7013c5a0434640f392e9501e611911ce
+    modified: 1707819988804
+    created: 1707819986178
+    url: http://localhost:8081/index.php/reservation
+    name: Modifier une réservation
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: ""
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707730413037.25
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_da83233876eb4eaf9bea6937e88a43d3
+    parentId: fld_7013c5a0434640f392e9501e611911ce
+    modified: 1707814542378
+    created: 1707753294837
+    url: http://localhost:8081/index.php/reservation
+    name: Effacer réservation
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"id":4
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707707558191.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_03a9a31527964151ba712623649d796a
+    parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    modified: 1707833977527
+    created: 1707483449859
+    url: http://localhost:8081/index.php/appart
+    name: Voir tout les apparts
+    description: ""
+    method: GET
+    body: {}
+    parameters:
+      - id: pair_3e00014694f44c5f8f3675c4127dc52d
+        name: id
+        value: "7"
+        description: ""
+        disabled: true
+    headers: []
+    authentication: {}
+    metaSortKey: -1707485064880
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    parentId: wrk_94ec466f54f143ad8331ec1dc9c95922
+    modified: 1707483322869
+    created: 1707483276140
+    name: Appart
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1707407614949.0625
+    _type: request_group
+  - _id: req_40620d56c66a4ceb9be84901958208ff
+    parentId: fld_bb03f71c73874bbc9e48f379d7dad680
+    modified: 1707835665301
+    created: 1707483340779
+    url: http://localhost:8081/index.php/appart
+    name: Appart1
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"superficie": "50",
+          "max_pers": "9",
+          "price": "105000",
+          "address": "24 rue gde esgi",
+          "creator": "1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707814973207
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_bb03f71c73874bbc9e48f379d7dad680
+    parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    modified: 1707833790832
+    created: 1707814964379
+    name: Créer apparts
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1707485064780
+    _type: request_group
+  - _id: req_2d7b398179ef4f6a906bc3472f04e747
+    parentId: fld_bb03f71c73874bbc9e48f379d7dad680
+    modified: 1707814973153
+    created: 1707483402109
+    url: http://localhost:8081/index.php/appart
+    name: Appart2
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"superficie": "58",
+          "max_pers": "3",
+          "price": "10000",
+          "address": "25 rue erard",
+          "creator": "1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707814973107
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_44cb29a4aff54d9aabaae8231ff51789
+    parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    modified: 1707689506892
+    created: 1707485064680
+    url: http://localhost:8081/index.php/appart
+    name: Modifier Appart
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        			"superficie": "55",
+        			"max_pers": "9",
+        			"address": "24 rue esgi",
+        			"price": "105000",
+        			"creator": "2"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1707485064680
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_c6d6c25b8784492a865a3451654ab979
+    parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    modified: 1707826208638
+    created: 1707819710409
+    url: http://localhost:8081/index.php/appart/disponibility
+    name: Modifier dispo de l'appart
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"id": "6"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707483462449
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_dba74ad9a3554f80acb0bded60666a5a
+    parentId: fld_d0715761ecac4f8ea75849c9c2f7ac75
+    modified: 1707833797442
+    created: 1707483475039
+    url: http://localhost:8081/index.php/appart
+    name: Supprimer Appart
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"id": "1"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+    authentication: {}
+    metaSortKey: -1707483462349
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6c2d43d0cbe14583b742eb296b935da1
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707835411632
+    created: 1707834944741
+    url: http://localhost:8081/index.php/connexion/getroles
+    name: Connaitre ses rôles
+    description: ""
+    method: GET
+    body: {}
+    parameters: []
+    headers:
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication:
+      type: digest
+      disabled: false
+      username: Test
+      password: Toto
+    metaSortKey: -1707834944741
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: fld_cfbc70c5af01444fa20ebf451b82c069
+    parentId: wrk_94ec466f54f143ad8331ec1dc9c95922
+    modified: 1707165388374
+    created: 1707165388374
+    name: Connexion
+    description: ""
+    environment: {}
+    environmentPropertyOrder: null
+    metaSortKey: -1707165388374
+    _type: request_group
+  - _id: req_13104fc9f865450aa1f54a327d6d6d72
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707851441104
+    created: 1707301038193
+    url: http://localhost:8081/index.php/connexion
+    name: Récupérer tous les comptes
+    description: ""
+    method: GET
+    body:
+      mimeType: application/json
+      text: ""
+    parameters:
+      - id: pair_00581182070a462e8e80e3dd63695cce
+        name: id
+        value: "4"
+        description: ""
+        disabled: false
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1707474542079
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_2c0ef2fc1cc1419fa2d70502f3b253ab
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707833804128
+    created: 1707295819421
+    url: http://localhost:8081/index.php/connexion
+    name: Connexion
+    description: ""
+    method: POST
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"titi@titi",
+        	"password":"Toto"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1707474532915.5
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_f54f20c9ea5c424496dedcfd1a67a78c
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707850383523
+    created: 1707165230004
+    url: http://localhost:8081/index.php/connexion
+    name: Créer compte
+    description: ""
+    method: PUT
+    body:
+      mimeType: application/json
+      text: |
+        {
+        	"username": "Test2",
+        	"email": "titi@tata",
+        	"password": "Toto2",
+        	"nom": "Toto",
+        	"prenom": "Toto"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/2023.5.8
+    authentication: {}
+    metaSortKey: -1707474531770.0625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6dc7f7ccb78347be913f0ed26b4ac769
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707833812189
+    created: 1707474523752
+    url: http://localhost:8081/index.php/connexion
+    name: Modifier
+    description: ""
+    method: PATCH
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	"email":"titi@tata",
+        	"username":"jean-marc"
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1707474530624.625
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: req_6e80ceb4a63345fa8c56baff46b5c2ba
+    parentId: fld_cfbc70c5af01444fa20ebf451b82c069
+    modified: 1707833802408
+    created: 1707474541979
+    url: http://127.0.0.1:8081/index.php/connexion
+    name: Supprimer
+    description: ""
+    method: DELETE
+    body:
+      mimeType: application/json
+      text: |-
+        {
+        	
+        }
+    parameters: []
+    headers:
+      - name: Content-Type
+        value: application/json
+      - name: User-Agent
+        value: insomnia/8.6.1
+    authentication: {}
+    metaSortKey: -1707165395533
+    isPrivate: false
+    settingStoreCookies: true
+    settingSendCookies: true
+    settingDisableRenderRequestBody: false
+    settingEncodeUrl: true
+    settingRebuildPath: true
+    settingFollowRedirects: global
+    _type: request
+  - _id: env_f406cb40e1199139756f3a9e521cac227158490a
+    parentId: wrk_94ec466f54f143ad8331ec1dc9c95922
+    modified: 1706879373789
+    created: 1706879373789
+    name: Base Environment
+    data: {}
+    dataPropertyOrder: null
+    color: null
+    isPrivate: false
+    metaSortKey: 1706879373789
+    _type: environment
+  - _id: jar_f406cb40e1199139756f3a9e521cac227158490a
+    parentId: wrk_94ec466f54f143ad8331ec1dc9c95922
+    modified: 1706879373793
+    created: 1706879373793
+    name: Default Jar
+    cookies: []
+    _type: cookie_jar
