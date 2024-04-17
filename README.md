@@ -1,3 +1,5 @@
+# Ce repository est un projet d'école, de 2ème année. 
+
 # RESTingTime
 
 
